@@ -25,10 +25,21 @@ public class A3 {
 	private int topN = 4;
 	private int totalwordcount = 0;
 	private Scanner input = new Scanner(System.in);
-//	private BST<Avenger> alphabticalBST = new BST<>();
+	private BST<Avenger> alphabticalBST = new BST<>();
 //	private BST<Avenger> mentionBST = new BST<Avenger>(new AvengerComparatorMentionOrder());
 //	private BST<Avenger> mostPopularAvengerBST = new BST<Avenger>(new AvengerComparatorFreqDesc());
 //	private BST<Avenger> mostPopularPerformerBST = new BST<Avenger>(new AvengerPerformerComparatorFreqDesc());
+	
+	private Avenger captainAmerica;
+	private Avenger ironMan;
+	private Avenger blackWidow;
+	private Avenger hulk;
+	private Avenger blackPanther;
+	private Avenger thor;
+	private Avenger hawkEye;
+	private Avenger warMachine;
+	private Avenger spiderMan;
+	private Avenger winterSoldier;
 	
 	public static void main(String[] args) {
 		A3 a3 = new A3();
@@ -69,6 +80,121 @@ public class A3 {
 		 *				- remember to set the frequency and the mention index.
 		 * You need to think carefully about how you are keeping track of the mention order by setting the mention order for each new avenger.
 		 */
+		totalwordcount = 0;
+		while (input.hasNext()) {
+			String word = input.next();
+			word = word.trim().toLowerCase().split("'")[0].replaceAll("[^\\\\sa-zA-Z]", "");
+			if (word.length() != 0) totalwordcount++;
+			matchIncrement(word, avengerRoster);
+		}
+		input.close();
+	}
+	
+	// can iterate through the BST and find how many nodes are there, and set mention index to nodeCount +1 (if 0, then number 1 so and so)
+	// index1 is for the [] in roster, so avengers
+	// index2 is for the [][] in roster, so name/alias/performer
+	public void matchIncrement(String word, String[][] avengerRoster) {
+		for (int index1 = 0; index1 < 10; index1 ++) {
+			for (int index2 = 0; index2 < 3; index2 ++ ) {
+				if (word.equals(avengerRoster[index1][index2])) {
+					if (index1 == 0) {
+						captainAmerica = createNew(index1);
+						increment(index2, captainAmerica);
+						if (!checkIfExist(captainAmerica)) {
+							// add to alphabetical bst
+						}
+					}
+					else if (index1 == 1) {
+						ironMan = createNew(index1);
+						increment(index2, ironMan);
+						if (!checkIfExist(ironMan)) {
+							// add to alphabetical bst
+						}
+					}
+					else if (index1 == 2) {
+						blackWidow = createNew(index1);
+						increment(index2, blackWidow);
+						if (!checkIfExist(blackWidow)) {
+							// add to alphabetical bst
+						}
+					}
+					else if (index1 == 3) {
+						hulk = createNew(index1);
+						increment(index2, hulk);
+						if (!checkIfExist(hulk)) {
+							// add to alphabetical bst
+						}
+					}
+					else if (index1 == 4) {
+						blackPanther = createNew(index1);
+						increment(index2, blackPanther);
+						if (!checkIfExist(blackPanther)) {
+							// add to alphabetical bst
+						}
+					}
+					else if (index1 == 5) {
+						thor = createNew(index1);
+						increment(index2, thor);
+						if (!checkIfExist(thor)) {
+							// add to alphabetical bst
+						}
+					}
+					else if (index1 == 6) {
+						hawkEye = createNew(index1);
+						increment(index2, hawkEye);
+						if (!checkIfExist(hawkEye)) {
+							// add to alphabetical bst
+						}
+					}
+					else if (index1 == 7) {
+						warMachine = createNew(index1);
+						increment(index2, warMachine);
+						if (!checkIfExist(warMachine)) {
+							// add to alphabetical bst
+						}
+					}
+					else if (index1 == 8) {
+						spiderMan = createNew(index1);
+						increment(index2, spiderMan);
+						if (!checkIfExist(spiderMan)) {
+							// add to alphabetical bst
+						}
+					}
+					else if (index1 == 9) {
+						winterSoldier = createNew(index1);
+						increment(index2, winterSoldier);
+						if (!checkIfExist(winterSoldier)) {
+							// add to alphabetical bst
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public int nodeCount(BST<Avenger> bst) {
+		
+	}
+	
+	public Avenger createNew(int index) {
+		Avenger newAvenger = new Avenger(avengerRoster[index][0], avengerRoster[index][1], avengerRoster[index][2]);
+		return newAvenger;
+	}
+	
+	public void increment(int index, Avenger av) {
+		if (index == 0) {
+			av.incrementAliasCount();
+		}
+		else if (index == 1) {
+			av.incrementNameCount();
+		}
+		else {
+			av.incrementActorCount();
+		}
+	}
+	
+	public boolean checkIfExist(Avenger av) {
+		// iterate through entire tree to create a queue? then check through queue?
 	}
 
 	/**
