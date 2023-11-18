@@ -1,84 +1,113 @@
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
 
-public class BST<T extends Comparable<T>> implements Iterable <T>{
+public class BST<T extends Comparable<T>> implements Iterable<T> {
+	public interface Queue<T> {
+		public T removeNode();
+
+		public void add(T data);
+
+		public int size();
+
+		public boolean isEmpty();
+	}
+
 	@Override
 	public Iterator<T> iterator() {
 		return new BSTIterator<T>();
 	}
-		private class BSTIterator<T> implements Iterator<T>, Queue<T>{
-			
-	        
-	        // initialize the stack and push the root node if it is not null
-	        public BSTIterator() {
-	            stack = new Stack<>();
-	            if (root != null) {
-	            	Node<T> newNode = new Node<>(root.getData());
-	                stack.push(root.getData());
-	            }
-	        }
-			public boolean hasNext() {
-				//TODO: 
-				return false;
-			}
-				
-			@Override
-			public T next(){
-				T t = null;
-				//TODO:
-				return t;
-			}
-		}
-	class BSTNode<T extends Comparable<T>> implements Comparable<BSTNode<T>>{
-		private T data;
-		private BSTNode<T> left;
-		private BSTNode<T> right;
 
-		public BSTNode(T d) {
-			setLeft(null);
-			setRight(null);
-			setData(d);
+	private class BSTIterator<T> implements Iterator<T>, Queue<T> {
+		SLL<T> queue = new SLL<T>();
+
+		// initialize the stack and push the root node if it is not null
+		public BSTIterator() {
+			// TODO: Implement the constructor
 		}
 
-		public T getData() {
+		public boolean hasNext() {
+			//TODO: 
+			return false;
+		}
+
+		@Override
+		public T next() {
+			T data = null;
+			//TODO: 
 			return data;
 		}
 
-		public void setData(T d) {
-			data = d;
+		@Override
+		public int size() {
+			return queue.size();
 		}
 
-		public void setLeft(BSTNode<T> l) {
-			left = l;
+		@Override
+		public boolean isEmpty() {
+			return queue.Empty();
 		}
 
-		public void setRight(BSTNode<T> r) {
-			right = r;
+		@Override
+		public T removeNode() {
+			return queue.deleteHead();
 		}
 
-		public BSTNode<T> getLeft() {
-			return left;
+		@Override
+		public void add(T data) {
+			queue.addTail(data);
 		}
 
-		public BSTNode<T> getRight() {
-			return right;
-		}
+	}
+}
 
-		public boolean isLeaf() {
-			return (getLeft() == null) && (getRight() == null);
-		}
+class BSTNode<T extends Comparable<T>> implements Comparable<BSTNode<T>> {
+	private T data;
+	private BSTNode<T> left;
+	private BSTNode<T> right;
 
-		public int compareTo(BSTNode<T> o) {
-			return this.getData().compareTo(o.getData());
-		}
+	public BSTNode(T d) {
+		setLeft(null);
+		setRight(null);
+		setData(d);
+	}
+
+	public T getData() {
+		return data;
+	}
+
+	public void setData(T d) {
+		data = d;
+	}
+
+	public void setLeft(BSTNode<T> l) {
+		left = l;
+	}
+
+	public void setRight(BSTNode<T> r) {
+		right = r;
+	}
+
+	public BSTNode<T> getLeft() {
+		return left;
+	}
+
+	public BSTNode<T> getRight() {
+		return right;
+	}
+
+	public boolean isLeaf() {
+		return (getLeft() == null) && (getRight() == null);
+	}
+
+	public int compareTo(BSTNode<T> o) {
+		return this.getData().compareTo(o.getData());
 	}
 
 	private BSTNode<T> root;
 	private int size;
 
-	public BST() {
+	public BSTNode() {
 		root = null;
 		size = 0;
 	}
@@ -152,18 +181,18 @@ public class BST<T extends Comparable<T>> implements Iterable <T>{
 		int c = n.compareTo(r);
 		if (c < 0) {
 			// TODO
-			if(r.getLeft() == null) {
+			if (r.getLeft() == null) {
 				r.setLeft(n);
-			}else {
-				add(root,n);
+			} else {
+				add(root, n);
 			}
-		}else {
-			if(r.getRight() == null) {
+		} else {
+			if (r.getRight() == null) {
 				r.setRight(n);
-			}else {
-				add(root,n);
+			} else {
+				add(root, n);
 			}
-			
+
 		}
 	}
 
@@ -171,14 +200,14 @@ public class BST<T extends Comparable<T>> implements Iterable <T>{
 	private int height(BSTNode<T> r) {
 		int h = -1;
 		// TODO
-		if(r.isLeaf()) {
+		if (r.isLeaf()) {
 			return h;
-		}else{
-			while(r.getLeft() != null) {
+		} else {
+			while (r.getLeft() != null) {
 				visit(r);
 				h++;
 			}
-			while(r.getRight() != null) {
+			while (r.getRight() != null) {
 				visit(r);
 				h++;
 			}
@@ -227,15 +256,15 @@ public class BST<T extends Comparable<T>> implements Iterable <T>{
 		// TODO:
 		// Implement java.Queue
 		Queue<BSTNode<T>> list = new LinkedList<>();
-		if(r != null) {
+		if (r != null) {
 			list.add(r);
 		}
-		while(!list.isEmpty()) {
+		while (!list.isEmpty()) {
 			BSTNode<T> curr = list.remove();
 			visit(curr);
 			list.add(curr.getLeft());
 			list.add(curr.getRight());
 		}
-		
+
 	}
 }

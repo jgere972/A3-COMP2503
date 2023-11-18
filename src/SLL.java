@@ -1,5 +1,37 @@
 
-public class SLL<T extends Comparable<T>>{
+public class SLL<T>{
+	private class Node<T> {
+		private T data;
+		private Node<T> next;
+
+		/**
+		 * Constructor for objects of class Node
+		 */
+		public Node(T d) {
+			data = d;
+			next = null;
+		}
+
+		public T getData() {
+			return data;
+		}
+
+		public void setData(T o) {
+			data = o;
+		}
+
+		public Node<T> getNext() {
+			return next;
+		}
+
+		public void setNext(Node<T> n) {
+			next = n;
+		}
+
+		public String toString() {
+			return "Node: " + getData().toString();
+		}
+	}
 	private Node<T> head, tail;
 	private int size;
 
@@ -165,6 +197,9 @@ public class SLL<T extends Comparable<T>>{
 		}
 		size++;
 	}
+	public void addTail(Node<T> n) {
+		addTailInternal(n);
+	}
 	
 	public SLL<T> getNext(){
 		return getNextNode();
@@ -180,7 +215,7 @@ public class SLL<T extends Comparable<T>>{
 	/*
 	 * Add a new Node to the tail of the list.
 	 */
-	private void addTail(Node<T> n) {
+	private void addTailInternal(Node<T> n) {
 		if(Empty()) {
 			addHead(n);
 		}else {
