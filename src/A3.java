@@ -25,7 +25,7 @@ public class A3 {
 	private int topN = 4;
 	private int totalwordcount = 0;
 	private Scanner input = new Scanner(System.in);
-	private BST<Avenger> alphabeticalBST = new BST<>();
+	private BST<Avenger> alphabeticalBST = new BST<Avenger>();
 	private BST<Avenger> mentionBST = new BST<Avenger>(new AvengerComparatorMentionOrder());
 	private BST<Avenger> mostPopularAvengerBST = new BST<Avenger>(new AvengerComparatorFreqDesc());
 	private BST<Avenger> mostPopularPerformerBST = new BST<Avenger>(new AvengerPerformerComparatorFreqDesc());
@@ -67,19 +67,6 @@ public class A3 {
 	 * alias or last name or performer name.
 	 */
 	private void readInput() {
-		/* Create a mention index counter and initialize it to 1
-		 * While the scanner object has not reached end of stream, 
-		 * 	- read a word. 
-		 * 	- clean up the word 
-		 * 	- if the word is not empty, add the word count. 
-		 * 	- Check if the word is either an avenger alias or last name, or performer last name then
-		 *		- Create a new avenger object with the corresponding alias and last name and performer last name.
-		 *		- check if this avenger has already been added to the alphabetically ordered tree
-		 *			- if yes, increase the corresponding frequency count for the object already in the tree.
-		 *			- if no, add the newly created avenger to the alphabetically ordered BST, 
-		 *				- remember to set the frequency and the mention index.
-		 * You need to think carefully about how you are keeping track of the mention order by setting the mention order for each new avenger.
-		 */
 		totalwordcount = 0;
 		while (input.hasNext()) {
 			String word = input.next();
@@ -182,7 +169,7 @@ public class A3 {
 		}
 	}
 	
-	public int nodeCount(BST<Avenger> bst) {
+	public int nodeCount(BST bst) {
 		return bst.size();
 	}
 	
@@ -192,26 +179,19 @@ public class A3 {
 	}
 	
 	public void increment(int index, Avenger av) {
-		if (index == 0) {
-			av.incrementAliasCount();
-		}
-		else if (index == 1) {
-			av.incrementNameCount();
-		}
-		else {
-			av.incrementActorCount();
-		}
+		if (index == 0) av.incrementAliasCount();
+		else if (index == 1) av.incrementNameCount();
+		else av.incrementActorCount();
 	}
 	
 	public boolean checkIfExist(Avenger av) {
-		// iterate through entire tree to create a queue? then check through queue?
+		if (alphabeticalBST.find(av) != null) return true;
+		else return false;
 	}
 
 	/**
 	 * print the results
 	 */
-	
-	//alphabeticalBST is just a placeholder, can replace with appropriate bst
 	private void printResults() {
 		System.out.println("Total number of words: " + totalwordcount);
 		System.out.println("Number of Avengers Mentioned: " + alphabeticalBST.size());
