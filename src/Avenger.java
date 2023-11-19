@@ -42,6 +42,10 @@ public class Avenger {
 	public int getActorCount() {
 		return performerFreq;
 	}
+	
+	public int getTotalCount() {
+		return nameFreq + aliasFreq + performerFreq;
+	}
 
 	// Incrementing the Counters
 	public void incrementNameCount() {
