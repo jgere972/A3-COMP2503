@@ -25,10 +25,10 @@ public class A3 {
 	private int topN = 4;
 	private int totalwordcount = 0;
 	private Scanner input = new Scanner(System.in);
-	private BST<Avenger> alphabticalBST = new BST<>();
-//	private BST<Avenger> mentionBST = new BST<Avenger>(new AvengerComparatorMentionOrder());
-//	private BST<Avenger> mostPopularAvengerBST = new BST<Avenger>(new AvengerComparatorFreqDesc());
-//	private BST<Avenger> mostPopularPerformerBST = new BST<Avenger>(new AvengerPerformerComparatorFreqDesc());
+	private BST<Avenger> alphabeticalBST = new BST<>();
+	private BST<Avenger> mentionBST = new BST<Avenger>(new AvengerComparatorMentionOrder());
+	private BST<Avenger> mostPopularAvengerBST = new BST<Avenger>(new AvengerComparatorFreqDesc());
+	private BST<Avenger> mostPopularPerformerBST = new BST<Avenger>(new AvengerPerformerComparatorFreqDesc());
 	
 	private Avenger captainAmerica;
 	private Avenger ironMan;
@@ -101,70 +101,80 @@ public class A3 {
 						captainAmerica = createNew(index1);
 						increment(index2, captainAmerica);
 						if (!checkIfExist(captainAmerica)) {
-							// add to alphabetical bst
+							alphabeticalBST.add(captainAmerica);
+							captainAmerica.setMentionIndex(alphabeticalBST.size() + 1);
 						}
 					}
 					else if (index1 == 1) {
 						ironMan = createNew(index1);
 						increment(index2, ironMan);
 						if (!checkIfExist(ironMan)) {
-							// add to alphabetical bst
+							alphabeticalBST.add(ironMan);
+							ironMan.setMentionIndex(alphabeticalBST.size() + 1);
 						}
 					}
 					else if (index1 == 2) {
 						blackWidow = createNew(index1);
 						increment(index2, blackWidow);
 						if (!checkIfExist(blackWidow)) {
-							// add to alphabetical bst
+							alphabeticalBST.add(blackWidow);
+							blackWidow.setMentionIndex(alphabeticalBST.size() + 1);
 						}
 					}
 					else if (index1 == 3) {
 						hulk = createNew(index1);
 						increment(index2, hulk);
 						if (!checkIfExist(hulk)) {
-							// add to alphabetical bst
+							alphabeticalBST.add(hulk);
+							hulk.setMentionIndex(alphabeticalBST.size() + 1);
 						}
 					}
 					else if (index1 == 4) {
 						blackPanther = createNew(index1);
 						increment(index2, blackPanther);
 						if (!checkIfExist(blackPanther)) {
-							// add to alphabetical bst
+							alphabeticalBST.add(blackPanther);
+							blackPanther.setMentionIndex(alphabeticalBST.size() + 1);
 						}
 					}
 					else if (index1 == 5) {
 						thor = createNew(index1);
 						increment(index2, thor);
 						if (!checkIfExist(thor)) {
-							// add to alphabetical bst
+							alphabeticalBST.add(thor);
+							thor.setMentionIndex(alphabeticalBST.size() + 1);
 						}
 					}
 					else if (index1 == 6) {
 						hawkEye = createNew(index1);
 						increment(index2, hawkEye);
 						if (!checkIfExist(hawkEye)) {
-							// add to alphabetical bst
+							alphabeticalBST.add(hawkEye);
+							hawkEye.setMentionIndex(alphabeticalBST.size() + 1);
 						}
 					}
 					else if (index1 == 7) {
 						warMachine = createNew(index1);
 						increment(index2, warMachine);
 						if (!checkIfExist(warMachine)) {
-							// add to alphabetical bst
+							alphabeticalBST.add(warMachine);
+							warMachine.setMentionIndex(alphabeticalBST.size() + 1);
 						}
 					}
 					else if (index1 == 8) {
 						spiderMan = createNew(index1);
 						increment(index2, spiderMan);
 						if (!checkIfExist(spiderMan)) {
-							// add to alphabetical bst
+							alphabeticalBST.add(spiderMan);
+							spiderMan.setMentionIndex(alphabeticalBST.size() + 1);
 						}
 					}
 					else if (index1 == 9) {
 						winterSoldier = createNew(index1);
 						increment(index2, winterSoldier);
 						if (!checkIfExist(winterSoldier)) {
-							// add to alphabetical bst
+							alphabeticalBST.add(winterSoldier);
+							winterSoldier.setMentionIndex(alphabeticalBST.size() + 1);
 						}
 					}
 				}
@@ -173,7 +183,7 @@ public class A3 {
 	}
 	
 	public int nodeCount(BST<Avenger> bst) {
-		
+		return bst.size();
 	}
 	
 	public Avenger createNew(int index) {
@@ -200,30 +210,30 @@ public class A3 {
 	/**
 	 * print the results
 	 */
+	
+	//alphabeticalBST is just a placeholder, can replace with appropriate bst
 	private void printResults() {
-		// Todo: Print the total number of words (this total should not include words that are all digits or punctuation.)
 		System.out.println("Total number of words: " + totalwordcount);
-		// TODO: Print the number of mentioned avengers after deleting "barton" and "banner".
-		//System.out.println("Number of Avengers Mentioned: " + ??);
+		System.out.println("Number of Avengers Mentioned: " + alphabeticalBST.size());
 		System.out.println();
 
+		// take alpahbeticalBST, add to mentionBST in order of mention index
 		System.out.println("All avengers in the order they appeared in the input stream:");
-		// TODO: Print the list of avengers in the order they appeared in the input
-		// Make sure you follow the formatting example in the sample output
+		mentionBST.printInOrder();
 		System.out.println();
 		
+		// take alphabeticalBST, add to mostPopularAvengerBST in order of total mentions
 		System.out.println("Top " + topN + " most popular avengers:");
-		// TODO: Print the most popular avengers, see the instructions for tie breaking
-		// Make sure you follow the formatting example in the sample output
+		mostPopularAvengerBST.printInOrder();
 		System.out.println();
 
+		// take alphabeticalBST, add to mostPopularPerformerBST in order of performer mentions
 		System.out.println("Top " + topN + " most popular performers:");
-		// TODO: Print the most popular performers, see the instructions for tie breaking
-		// Make sure you follow the formatting example in the sample output
+		mostPopularPerformerBST.printInOrder();
 		System.out.println();
 
 		System.out.println("All mentioned avengers in alphabetical order:");
-		// TODO: Print the list of avengers in alphabetical order
+		alphabeticalBST.printInOrder();
 		System.out.println();
 
 		// TODO: Print the actual height and the optimal height for each of the four trees.

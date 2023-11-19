@@ -150,29 +150,25 @@ public class BST<T extends Comparable<T>> implements Iterable <T>{
 	private void add(BSTNode<T> r, BSTNode<T> n) {
 		int c = n.compareTo(r);
 		if (c < 0) {
-			// TODO
-			if(r.getLeft() == null) {
+			if(r.getLeft() == null)
 				r.setLeft(n);
-			}else {
+			else
 				add(root,n);
-			}
-		}else {
-			if(r.getRight() == null) {
+		}
+		else {
+			if(r.getRight() == null)
 				r.setRight(n);
-			}else {
-				add(root,n);
-			}
-			
+			else
+				add(root,n);			
 		}
 	}
 
 	/* Implement a height method. */
 	private int height(BSTNode<T> r) {
 		int h = -1;
-		// TODO
-		if(r.isLeaf()) {
+		if(r.isLeaf())
 			return h;
-		}else{
+		else {
 			while(r.getLeft() != null) {
 				visit(r);
 				h++;
@@ -201,7 +197,6 @@ public class BST<T extends Comparable<T>> implements Iterable <T>{
 	}
 
 	private void preOrderTraversal(BSTNode<T> r) {
-		// TODO:
 		if (r == null)
 			return;
 		else {
@@ -212,7 +207,6 @@ public class BST<T extends Comparable<T>> implements Iterable <T>{
 	}
 
 	private void postOrderTraversal(BSTNode<T> r) {
-		// TODO:
 		if (r == null)
 			return;
 		else {
@@ -223,12 +217,9 @@ public class BST<T extends Comparable<T>> implements Iterable <T>{
 	}
 
 	private void levelOrderTraversal(BSTNode<T> r) {
-		// TODO:
-		// Implement java.Queue
 		Queue<BSTNode<T>> list = new LinkedList<>();
-		if(r != null) {
+		if(r != null)
 			list.add(r);
-		}
 		while(!list.isEmpty()) {
 			BSTNode<T> curr = list.remove();
 			visit(curr);

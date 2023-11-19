@@ -6,6 +6,7 @@ public class Avenger {
 	private int nameFreq;
 	private int aliasFreq;
 	private int performerFreq;
+	private int mentionIndex;
 
 	// Constructor
 	public Avenger(String alias, String name, String actor) {
@@ -55,6 +56,14 @@ public class Avenger {
 		performerFreq++;
 	}
 
+	public void setMentionIndex(int i) {
+		mentionIndex = i;
+	}
+	
+	public int getMentionIndex() {
+		return mentionIndex;
+	}
+	
 	@Override
 	public boolean equals(Object obj) { // Matching compareTo to order Alias alphabetically
 		if (obj == null) {
