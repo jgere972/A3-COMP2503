@@ -1,4 +1,4 @@
-public class Avenger {
+public class Avenger implements Comparable<Avenger> {
 
 	private String heroName;
 	private String heroAlias;
@@ -88,5 +88,12 @@ public class Avenger {
 	public String toString() {
 		return heroAlias + " aka " + heroName + " performed by " + performer + " mentioned " + "(n: " + nameFreq
 				+ " + a: " + aliasFreq + " + p: " + performerFreq + ")" + " time(s)";
+	}
+	
+	@Override
+	public int compareTo(Avenger other) {
+		if (other == null)
+			return -1;
+		return this.getAlias().compareTo(other.getAlias());
 	}
 }
