@@ -2,66 +2,47 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BST<T extends Comparable<T>> implements Iterable<T> {
-	public interface Queue<T> {
-		public T removeNode();
-
-		public void add(T data);
-
-		public int size();
-
-		public boolean isEmpty();
-	}
-
+public class BST<T extends Comparable<T>> extends BSTNode<T> implements Iterable<T> {
 	@Override
 	public Iterator<T> iterator() {
-		return new BSTIterator<T>();
+		return new BSTIterator<T>(root);
 	}
 
-	private class BSTIterator<T> implements Iterator<T>, Queue<T> {
-		SLL<T> queue = new SLL<T>();
+	private class BSTIterator<T> implements Iterator<T>{
+		SLL<T> queue;
 
-		// initialize the stack and push the root node if it is not null
-		public BSTIterator() {
-			// TODO: Implement the constructor
+		public BSTIterator(BSTNode<T> root) {
+			queue = new SLL<T>();
+			
+			
+		}
+		public void AddToQueue(BSTNode<T> root) {
+			if (root == null)
+				return;
+			else {
+				queue.add(inOrderTraversal(root.getLeft()));
+				queue.add(root);
+				queue.add(inOrderTraversal(root.getRight()));
+			}
+			
 		}
 
 		public boolean hasNext() {
-			//TODO: 
-			return false;
+			if(queue == null) {
+				return false;
+			}else {
+				return true;
+			}
 		}
 
 		@Override
 		public T next() {
-			T data = null;
-			//TODO: 
-			return data;
+			return queue.removeNode();
 		}
-
-		@Override
-		public int size() {
-			return queue.size();
-		}
-
-		@Override
-		public boolean isEmpty() {
-			return queue.Empty();
-		}
-
-		@Override
-		public T removeNode() {
-			return queue.deleteHead();
-		}
-
-		@Override
-		public void add(T data) {
-			queue.addTail(data);
-		}
-
 	}
 }
 
-class BSTNode<T extends Comparable<T>> implements Comparable<BSTNode<T>> {
+class BSTNode<T extends Comparable<T>> {
 	private T data;
 	private BSTNode<T> left;
 	private BSTNode<T> right;
@@ -104,7 +85,7 @@ class BSTNode<T extends Comparable<T>> implements Comparable<BSTNode<T>> {
 		return this.getData().compareTo(o.getData());
 	}
 
-	private BSTNode<T> root;
+	protected BSTNode<T> root;
 	private int size;
 
 	public BSTNode() {

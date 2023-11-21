@@ -1,5 +1,14 @@
 
-public class SLL<T>{
+public class SLL<T> implements customQueue<T>{
+	public T removeNode() {
+		return deleteHead();
+	}
+		
+	
+	public void add(T t) {
+		addTail(t);
+	}
+	
 	private class Node<T> {
 		private T data;
 		private Node<T> next;
@@ -62,7 +71,7 @@ public class SLL<T>{
 	 * Checking if List is empty
 	 * @return boolean value to check if linked List is empty
 	 */
-	public boolean Empty() {
+	public boolean isEmpty() {
 		return(head == null && tail == null || size() == 0);
 	}
 
@@ -216,7 +225,7 @@ public class SLL<T>{
 	 * Add a new Node to the tail of the list.
 	 */
 	private void addTailInternal(Node<T> n) {
-		if(Empty()) {
+		if(isEmpty()) {
 			addHead(n);
 		}else {
 			tail.setNext(n);
