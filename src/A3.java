@@ -32,12 +32,13 @@ public class A3 {
 	private Avenger warMachine = new Avenger(avengerRoster[7][0], avengerRoster[7][1], avengerRoster[7][2]);
 	private Avenger spiderMan = new Avenger(avengerRoster[8][0], avengerRoster[8][1], avengerRoster[8][2]);
 	private Avenger winterSoldier = new Avenger(avengerRoster[9][0], avengerRoster[9][1], avengerRoster[9][2]);
+	private ArrayList<Avenger> possibleAvengers = new ArrayList<>();
 
 	private int topN = 4;
 	private int totalwordCount = 0;
 	private Scanner input = new Scanner(System.in);
 //	private BST<Avenger> alphabticalBST = new BST<>();
-//	private BST<Avenger> mentionBST = new BST<Avenger>(new AvengerComparatorMentionOrder());
+	private BST<Avenger> mentionBST = new BST<Avenger>(new AvengerComparatorMentionOrder());
 //	private BST<Avenger> mostPopularAvengerBST = new BST<Avenger>(new AvengerComparatorFreqDesc());
 //	private BST<Avenger> mostPopularPerformerBST = new BST<Avenger>(new AvengerPerformerComparatorFreqDesc());
 	
@@ -80,6 +81,16 @@ public class A3 {
 		 *				- remember to set the frequency and the mention index.
 		 * You need to think carefully about how you are keeping track of the mention order by setting the mention order for each new avenger.
 		 */
+		possibleAvengers.add(cptAmerica);
+		possibleAvengers.add(ironMan);
+		possibleAvengers.add(blackWidow);
+		possibleAvengers.add(hulk);
+		possibleAvengers.add(blackPan);
+		possibleAvengers.add(thor);
+		possibleAvengers.add(hawkEye);
+		possibleAvengers.add(warMachine);
+		possibleAvengers.add(spiderMan);
+		possibleAvengers.add(winterSoldier);
 		
 		input = new Scanner(System.in);
 		while (input.hasNext()) {
@@ -87,6 +98,8 @@ public class A3 {
 			word = word.trim().toLowerCase().split("'")[0].replaceAll("[^\\\\sa-zA-Z]", "");
 			if (word.length() != 0) {
 				totalwordCount++;
+				// Making a list of all possible Avengers
+				matchIncrement(word, possibleAvengers); // Updating List of mentioned of Avengers and incrementing counters
 			}
 		}
 		input.close();
@@ -110,6 +123,16 @@ public class A3 {
 				checkList(avenger.get(i));
 				return;
 			}
+		}
+	}
+	
+	/* 
+	 * Checks if an avenger mentioned is found in the avengersList
+	 *  If not add the avenger to mentioned BST object
+	 */
+	private void checkList(Avenger a) {
+		if (!(mentionBST.iterator()) {
+			avengersList.add(a);
 		}
 	}
 

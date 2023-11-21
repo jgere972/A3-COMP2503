@@ -1,4 +1,3 @@
-
 public class SLL<T> implements customQueue<T>{
 	public T removeNode() {
 		return deleteHead();
