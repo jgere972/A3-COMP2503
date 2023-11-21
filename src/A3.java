@@ -169,7 +169,7 @@ public class A3 {
 		}
 	}
 	
-	public int nodeCount(BST bst) {
+	public int nodeCount(BST<Avenger> bst) {
 		return bst.size();
 	}
 	

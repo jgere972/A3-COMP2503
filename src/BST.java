@@ -1,7 +1,7 @@
 import java.util.Comparator;
 import java.util.LinkedList;
 
-public class BST<T> {
+public class BST<T extends Comparable<T>> {
 	private BSTNode<T> root;
 	private int size;
 	
