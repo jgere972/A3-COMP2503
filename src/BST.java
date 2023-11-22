@@ -13,11 +13,12 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	}
 	
 	public BST(Comparator<T> comparator) {
-		
+		root = null;
+		size = 0;
 	}
 	
 	public int size() {
-		return size;
+		return counter(root);
 	}
 	
 	public T find(T d) {
@@ -36,7 +37,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	}
 	
 	public void delete(T d) {
-		// implement please
+		root = delete(root, d);
 	}
 	
 	public int height() {
@@ -60,7 +61,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	}
 	
 	private T find(T d, BSTNode<T> r) {
-		if (r == null)
+		if (r == null || d == null)
 			return null;
 		int c = d.compareTo(r.getData());
 		if (c == 0)
@@ -77,23 +78,57 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
             return;
         }
         int c = n.compareTo(r);
-        if (c < 0) {
-            if (r != null) {    
-                if (r.getLeft() == null)
-                    r.setLeft(n);
-                else
-                    add(r.getLeft(), n);
-            }
+        if (c < 0) {   
+            if (r.getLeft() == null)
+                r.setLeft(n);
+            else
+                add(r.getLeft(), n);
         }
         else {
-            if (r != null) {
-                if (r.getRight() == null)
-                    r.setRight(n);
-                else
-                    add(r.getRight(), n);
-            }
+            if (r.getRight() == null)
+                r.setRight(n);
+            else
+                add(r.getRight(), n);
         }
-        return;
+	}
+	
+	private BSTNode<T> delete(BSTNode<T> r, T d) {
+	    if (r == null)
+	        return null;
+	    int c = d.compareTo(r.getData());
+	    if (c < 0) {
+	        r.setLeft(delete(r.getLeft(), d));
+	    } 
+	    else if (c > 0) {
+	        r.setRight(delete(r.getRight(), d));
+	    } 
+	    else {
+	        if (r.getLeft() == null)
+	            return r.getRight();
+	        else if (r.getRight() == null)
+	            return r.getLeft();
+	        r.setData(minValue(r.getRight()));
+	        r.setRight(delete(r.getRight(), r.getData()));
+	    }
+	    return r;
+	}
+	
+	private T minValue(BSTNode<T> root) {
+	    T minValue = root.getData();
+	    while (root.getLeft() != null) {
+	        minValue = root.getLeft().getData();
+	        root = root.getLeft();
+	    }
+	    return minValue;
+	}
+	
+	private int counter(BSTNode<T> r) {
+		int count = 0;
+		if (r == null)
+			return count;
+		int leftCount = counter(r.getLeft());
+		int rightCount = counter(r.getRight());
+		return leftCount + rightCount + 1;
 	}
 	
 	private int height(BSTNode<T> r) {
@@ -156,15 +191,15 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	}
 
 	private void levelOrderTraversal(BSTNode<T> r) {
-//		Queue<BSTNode<T>> list = new LinkedList<>();
-//		if(r != null)
-//			list.add(r);
-//		while(!list.isEmpty()) {
-//			BSTNode<T> curr = list.remove();
-//			visit(curr);
-//			list.add(curr.getLeft());
-//			list.add(curr.getRight());
-//		}
+		Queue<BSTNode<T>> list = new LinkedList<>();
+		if(r != null)
+			list.add(r);
+		while(!list.isEmpty()) {
+			BSTNode<T> curr = list.remove();
+			visit(curr);
+			list.add(curr.getLeft());
+			list.add(curr.getRight());
+		}
 	}
 
 	private Queue<T> queue = new LinkedList<T>();

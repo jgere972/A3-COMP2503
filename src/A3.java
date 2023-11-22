@@ -1,5 +1,7 @@
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -57,20 +59,55 @@ public class A3 {
 	}
 
 	private void createdAlternativeOrderBSTs() {
+		
 		toDelete = new Avenger("hawkeye", "barton", "renner");
 		alphabeticalBST.delete(toDelete);
 		toDelete = new Avenger("hulk", "banner", "ruffalo");
 		alphabeticalBST.delete(toDelete);
 		
-		iterator = alphabeticalBST.iterator();
-		
-		// adding, but not in the right order: find a way to add using the comparators
-		for (Avenger av: alphabeticalBST) {
-			mentionBST.add(av);
-			mostPopularAvengerBST.add(av);
-			mostPopularPerformerBST.add(av);
-		}
+	    // Create iterators for alphabeticalBST
+	    Iterator<Avenger> alphabeticalIterator = alphabeticalBST.iterator();
+
+	    // Add elements to mentionBST
+	    while (alphabeticalIterator.hasNext()) {
+	        Avenger av = alphabeticalIterator.next();
+	        mentionBST.add(av);
+	    }
+
+	    // Create a list for sorting based on frequency comparator
+	    List<Avenger> sortedByFreq = new ArrayList<>(alphabeticalBST.size());
+	    for (Avenger av : alphabeticalBST) {
+	        sortedByFreq.add(av);
+	    }
+	    sortedByFreq.sort(new AvengerComparatorFreqDesc());
+
+	    // Add topN elements based on frequency to mostPopularAvengerBST
+	    int freqTopN = topN;
+	    if (freqTopN > sortedByFreq.size()) {
+	        freqTopN = sortedByFreq.size();
+	    }
+	    for (Avenger av : sortedByFreq.subList(0, freqTopN)) {
+	        mostPopularAvengerBST.add(av);
+	    }
+
+	    // Create a list for sorting based on performer frequency comparator
+	    List<Avenger> sortedByPerformerFreq = new ArrayList<>(alphabeticalBST.size());
+	    for (Avenger av : alphabeticalBST) {
+	        sortedByPerformerFreq.add(av);
+	    }
+	    sortedByPerformerFreq.sort(new AvengerPerformerComparatorFreqDesc());
+
+	    // Add topN elements based on performer frequency to mostPopularPerformerBST
+	    int performerTopN = topN;
+	    if (performerTopN > sortedByPerformerFreq.size()) {
+	        performerTopN = sortedByPerformerFreq.size();
+	    }
+	    for (Avenger av : sortedByPerformerFreq.subList(0, performerTopN)) {
+	        mostPopularPerformerBST.add(av);
+	    }
 	}
+
+
 
 	/**
 	 * read the input stream and keep track how many times avengers are mentioned by
@@ -95,84 +132,86 @@ public class A3 {
 			for (int index2 = 0; index2 < 3; index2 ++ ) {
 				if (word.equals(avengerRoster[index1][index2])) {
 					if (index1 == 0) {
-						captainAmerica = createNew(index1);
-						increment(index2, captainAmerica);
 						if (!checkIfExist(captainAmerica)) {
+							captainAmerica = createNew(index1);
 							alphabeticalBST.add(captainAmerica);
 							captainAmerica.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, captainAmerica);
 					}
 					else if (index1 == 1) {
-						ironMan = createNew(index1);
-						increment(index2, ironMan);
 						if (!checkIfExist(ironMan)) {
+							ironMan = createNew(index1);
 							alphabeticalBST.add(ironMan);
 							ironMan.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, ironMan);
 					}
 					else if (index1 == 2) {
-						blackWidow = createNew(index1);
-						increment(index2, blackWidow);
 						if (!checkIfExist(blackWidow)) {
+							blackWidow = createNew(index1);
 							alphabeticalBST.add(blackWidow);
 							blackWidow.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, blackWidow);
 					}
 					else if (index1 == 3) {
-						hulk = createNew(index1);
-						increment(index2, hulk);
+
 						if (!checkIfExist(hulk)) {
+							hulk = createNew(index1);
 							alphabeticalBST.add(hulk);
 							hulk.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, hulk);
 					}
 					else if (index1 == 4) {
-						blackPanther = createNew(index1);
-						increment(index2, blackPanther);
+
 						if (!checkIfExist(blackPanther)) {
+							blackPanther = createNew(index1);
 							alphabeticalBST.add(blackPanther);
 							blackPanther.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, blackPanther);
 					}
 					else if (index1 == 5) {
-						thor = createNew(index1);
-						increment(index2, thor);
 						if (!checkIfExist(thor)) {
+							thor = createNew(index1);
 							alphabeticalBST.add(thor);
 							thor.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, thor);
 					}
 					else if (index1 == 6) {
-						hawkEye = createNew(index1);
-						increment(index2, hawkEye);
 						if (!checkIfExist(hawkEye)) {
+							hawkEye = createNew(index1);
 							alphabeticalBST.add(hawkEye);
 							hawkEye.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, hawkEye);
 					}
 					else if (index1 == 7) {
-						warMachine = createNew(index1);
-						increment(index2, warMachine);
 						if (!checkIfExist(warMachine)) {
+							warMachine = createNew(index1);
 							alphabeticalBST.add(warMachine);
 							warMachine.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, warMachine);
 					}
 					else if (index1 == 8) {
-						spiderMan = createNew(index1);
-						increment(index2, spiderMan);
 						if (!checkIfExist(spiderMan)) {
+							spiderMan = createNew(index1);
 							alphabeticalBST.add(spiderMan);
 							spiderMan.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, spiderMan);
 					}
 					else if (index1 == 9) {
-						winterSoldier = createNew(index1);
-						increment(index2, winterSoldier);
 						if (!checkIfExist(winterSoldier)) {
+							winterSoldier = createNew(index1);
 							alphabeticalBST.add(winterSoldier);
 							winterSoldier.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, winterSoldier);
 					}
 				}
 			}
