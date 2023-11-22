@@ -4,7 +4,7 @@ import java.util.Queue;
 
 public class BST<T extends Comparable<T>> extends BSTNode<T> implements Iterable<T> {
 	@Override
-	public Iterator<T> iterator() {
+	public BSTIterator<T> iterator() {
 		return new BSTIterator<T>(root);
 	}
 
@@ -12,7 +12,7 @@ public class BST<T extends Comparable<T>> extends BSTNode<T> implements Iterable
 		SLL<T> queue;
 
 		public BSTIterator(BSTNode<T> root) {
-			queue = new SLL<T>();
+			queue = new SLL<T>(root);
 			
 			
 		}
@@ -125,6 +125,10 @@ class BSTNode<T extends Comparable<T>> {
 	 */
 	public int height() {
 		return height(root);
+	}
+	
+	public int optimalHeight(int height) {
+		return Math.log(height)/Math.log(2);
 	}
 
 	public void printInOrder() {

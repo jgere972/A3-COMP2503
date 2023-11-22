@@ -11,10 +11,10 @@ public class SLL<T> implements customQueue<T>{
 	private Node<T> head, tail;
 	private int size;
 
-	public SLL() {
+	public SLL(BSTNode<T> root) {
 		head = null;
-		tail = null;
-		size = 0;
+		addTail(root.getData());
+		size = 1;
 	}
 
 	// Public Methods
@@ -82,18 +82,6 @@ public class SLL<T> implements customQueue<T>{
 	}
 
 	/**
-	 * Return tail value
-	 * 
-	 * @return tail value, null if list is empty
-	 */
-	public T getTail() {
-		if (tail == null)
-			return null;
-		else
-			return tail.getData();
-	}
-
-	/**
 	 * Delete the element at the head of the list.
 	 * 
 	 * @return the deleted element.
@@ -105,48 +93,7 @@ public class SLL<T> implements customQueue<T>{
 		else
 			return n.getData();
 	}
-
-	/**
-	 * Return the ith element of the list.
-	 * 
-	 * @param i the element to return
-	 * @return the ith element, null if there isnt one.
-	 */
-	public T get(int i) {
-		Node<T> curr = head;
-		int j = 0;
-		while (curr != null && j < i) {
-			curr = curr.getNext();
-			j++;
-		}
-		if (curr != null)
-			return curr.getData();
-		else
-			return null;
-	}
-	/**
-	 * Finding a node
-	 * 
-	 * @param str The data to find
-	 * @return the node found
-	 */
-	public Node<T> find(Node<T> str) {
-		return finding(str);
-	}
 	
-	/**
-	 * Delete a node 
-	 * 
-	 * @param str The key used to identify and delete node
-	 * @return the node saved before deletion
-	 */
-	public Node<T> delete(Node<T> key) {
-		return deleting(key);
-	}
-	
-	public boolean exist(T key) {
-		return exists(key);
-	}
 	public void setHead(Node<T> newNode) {
 	    setToHead(newNode);
 	 }
@@ -177,11 +124,11 @@ public class SLL<T> implements customQueue<T>{
 		addTailInternal(n);
 	}
 	
-	public SLL<T> getNext(){
+	public Node<T> getNext(){
 		return getNextNode();
 	}
 	
-	public Node<T> getData(){
+	public T getData(){
 		return getData();
 	}
 	public void setNext(SLL <T> n) {
@@ -212,56 +159,8 @@ public class SLL<T> implements customQueue<T>{
 		}
 		return n;
 	}
-	/*
-	 * Finding a node using a key
-	 */
-	private boolean exists(T key) {
-		Node<T> curr = head;
-		while (curr != null) {
-			if (curr == key) {
-				return true;
-			} else {
-				curr = curr.getNext();
-			}
-		}
-		return false;
-	}
-	/*
-	 * Finding a node using a key
-	 */
-	private Node<T> finding(Node<T> key) {
-		Node<T> curr = head;
-		while (curr != null) {
-			if (curr.getData() == key.getData()) {
-				return curr;
-			} else {
-				curr = curr.getNext();
-			}
-		}
-		return null;
-	}
-	/*
-	 * Deleting a node identified with a key
-	 */
-	private Node<T> deleting(Node <T> key) {
-		// implement delete
-		if (finding(key) != null) { //Does key match any of the Strings in the List of Nodes?
-			Node<T> nodeToDelete = finding(key);	
-			Node<T> curr = head;
-			while (curr.getNext() != null && !(curr.getNext().getData().equals(nodeToDelete.getData()))) { 
-				//Stop when String in the Node after curr equals to String in nodeToDelete
-				curr = curr.getNext();
-				
-			}
-			Node<T> nodeDeleted = curr.getNext();
-			curr.setNext(curr.getNext().getNext());
-			return nodeDeleted;
-		} else {
-			return null;
-		}
-	}
 	
-	private SLL<T> getNextNode(){
+	private Node<T> getNextNode(){
 		return getNext();
 	}
 	

@@ -1,4 +1,3 @@
-
 public interface customQueue<T> {
 
 	public T removeNode();
