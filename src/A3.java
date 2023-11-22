@@ -95,84 +95,86 @@ public class A3 {
 			for (int index2 = 0; index2 < 3; index2 ++ ) {
 				if (word.equals(avengerRoster[index1][index2])) {
 					if (index1 == 0) {
-						captainAmerica = createNew(index1);
-						increment(index2, captainAmerica);
 						if (!checkIfExist(captainAmerica)) {
+							captainAmerica = createNew(index1);
 							alphabeticalBST.add(captainAmerica);
 							captainAmerica.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, captainAmerica);
 					}
 					else if (index1 == 1) {
-						ironMan = createNew(index1);
-						increment(index2, ironMan);
 						if (!checkIfExist(ironMan)) {
+							ironMan = createNew(index1);
 							alphabeticalBST.add(ironMan);
 							ironMan.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, ironMan);
 					}
 					else if (index1 == 2) {
-						blackWidow = createNew(index1);
-						increment(index2, blackWidow);
 						if (!checkIfExist(blackWidow)) {
+							blackWidow = createNew(index1);
 							alphabeticalBST.add(blackWidow);
 							blackWidow.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, blackWidow);
 					}
 					else if (index1 == 3) {
-						hulk = createNew(index1);
-						increment(index2, hulk);
+
 						if (!checkIfExist(hulk)) {
+							hulk = createNew(index1);
 							alphabeticalBST.add(hulk);
 							hulk.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, hulk);
 					}
 					else if (index1 == 4) {
-						blackPanther = createNew(index1);
-						increment(index2, blackPanther);
+
 						if (!checkIfExist(blackPanther)) {
+							blackPanther = createNew(index1);
 							alphabeticalBST.add(blackPanther);
 							blackPanther.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, blackPanther);
 					}
 					else if (index1 == 5) {
-						thor = createNew(index1);
-						increment(index2, thor);
 						if (!checkIfExist(thor)) {
+							thor = createNew(index1);
 							alphabeticalBST.add(thor);
 							thor.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, thor);
 					}
 					else if (index1 == 6) {
-						hawkEye = createNew(index1);
-						increment(index2, hawkEye);
 						if (!checkIfExist(hawkEye)) {
+							hawkEye = createNew(index1);
 							alphabeticalBST.add(hawkEye);
 							hawkEye.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, hawkEye);
 					}
 					else if (index1 == 7) {
-						warMachine = createNew(index1);
-						increment(index2, warMachine);
 						if (!checkIfExist(warMachine)) {
+							warMachine = createNew(index1);
 							alphabeticalBST.add(warMachine);
 							warMachine.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, warMachine);
 					}
 					else if (index1 == 8) {
-						spiderMan = createNew(index1);
-						increment(index2, spiderMan);
 						if (!checkIfExist(spiderMan)) {
+							spiderMan = createNew(index1);
 							alphabeticalBST.add(spiderMan);
 							spiderMan.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, spiderMan);
 					}
 					else if (index1 == 9) {
-						winterSoldier = createNew(index1);
-						increment(index2, winterSoldier);
 						if (!checkIfExist(winterSoldier)) {
+							winterSoldier = createNew(index1);
 							alphabeticalBST.add(winterSoldier);
 							winterSoldier.setMentionIndex(alphabeticalBST.size() + 1);
 						}
+						increment(index2, winterSoldier);
 					}
 				}
 			}

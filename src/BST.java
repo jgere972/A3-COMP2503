@@ -61,7 +61,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	}
 	
 	private T find(T d, BSTNode<T> r) {
-		if (r == null)
+		if (r == null || d == null)
 			return null;
 		int c = d.compareTo(r.getData());
 		if (c == 0)
