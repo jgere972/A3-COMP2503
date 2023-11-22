@@ -1,4 +1,5 @@
 
+import java.util.Iterator;
 import java.util.Scanner;
 
 /**
@@ -40,6 +41,9 @@ public class A3 {
 	private Avenger warMachine;
 	private Avenger spiderMan;
 	private Avenger winterSoldier;
+	private Avenger toDelete;
+	
+	Iterator<Avenger> iterator;
 	
 	public static void main(String[] args) {
 		A3 a3 = new A3();
@@ -53,13 +57,19 @@ public class A3 {
 	}
 
 	private void createdAlternativeOrderBSTs() {
-		/* TODO:
-		 *   - delete the following two avengers (if they exist) from the alphabetical tree
-		 *   	- barton
-		 *   	- banner
-		 *   use the tree iterator to do an in-order traversal of the alphabetical tree,
-		 *   and add avengers to the other trees with alternative ordering
-		 */
+		toDelete = new Avenger("hawkeye", "barton", "renner");
+		alphabeticalBST.delete(toDelete);
+		toDelete = new Avenger("hulk", "banner", "ruffalo");
+		alphabeticalBST.delete(toDelete);
+		
+		iterator = alphabeticalBST.iterator();
+		
+		// adding, but not in the right order: find a way to add using the comparators
+		for (Avenger av: alphabeticalBST) {
+			mentionBST.add(av);
+			mostPopularAvengerBST.add(av);
+			mostPopularPerformerBST.add(av);
+		}
 	}
 
 	/**
@@ -197,17 +207,16 @@ public class A3 {
 		System.out.println("Number of Avengers Mentioned: " + alphabeticalBST.size());
 		System.out.println();
 
-		// take alpahbeticalBST, add to mentionBST in order of mention index
 		System.out.println("All avengers in the order they appeared in the input stream:");
 		mentionBST.printInOrder();
 		System.out.println();
 		
-		// take alphabeticalBST, add to mostPopularAvengerBST in order of total mentions
+		// change to print topN
 		System.out.println("Top " + topN + " most popular avengers:");
 		mostPopularAvengerBST.printInOrder();
 		System.out.println();
 
-		// take alphabeticalBST, add to mostPopularPerformerBST in order of performer mentions
+		// change to print topN
 		System.out.println("Top " + topN + " most popular performers:");
 		mostPopularPerformerBST.printInOrder();
 		System.out.println();
@@ -225,5 +234,12 @@ public class A3 {
 //				+ " (Optimal height for this tree is : " + ?? + ")");
 //		System.out.println("Height of the most frequent performer tree is : " + ??
 //		+ " (Optimal height for this tree is : " + ?? + ")");
+		
+		// add optimal heights
+		System.out.println("Height of the mention order tree is : " + mentionBST.height());
+		System.out.println("Height of the alphabetical order tree is : " + alphabeticalBST.height());
+		System.out.println("Height of the most frequent order tree is : " + mostPopularAvengerBST.height());
+		System.out.println("Height of the most frequent performer order tree is : " + mostPopularPerformerBST.height());
+
 	}
 }
