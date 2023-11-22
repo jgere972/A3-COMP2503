@@ -47,4 +47,3 @@ public class BSTNode<T extends Comparable<T>> implements Comparable<BSTNode<T>> 
 		return this.data.compareTo(o.getData());
 	}
 }
-
