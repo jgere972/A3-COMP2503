@@ -8,23 +8,17 @@ public class BST<T extends Comparable<T>> extends BSTNode<T> implements Iterable
 		return new BSTIterator<T>(root);
 	}
 
-	private class BSTIterator<T> implements Iterator<T>{
+	private class BSTIterator<E> implements Iterator<E>{
 		SLL<T> queue;
 
 		public BSTIterator(BSTNode<T> root) {
 			queue = new SLL<T>(root);
+			addToQueue(root);
 			
 			
 		}
-		public void AddToQueue(BSTNode<T> root) {
-			if (root == null)
-				return;
-			else {
-				queue.add(inOrderTraversal(root.getLeft()));
-				queue.add(root);
-				queue.add(inOrderTraversal(root.getRight()));
-			}
-			
+		public void addToQueue(BSTNode<T> root) {
+			inOrderQueueine(root, queue);
 		}
 
 		public boolean hasNext() {
@@ -128,12 +122,17 @@ class BSTNode<T extends Comparable<T>> {
 	}
 	
 	public int optimalHeight(int height) {
-		return Math.log(height)/Math.log(2);
+		return (int) ((int) Math.log(height)/Math.log(2));
 	}
 
 	public void printInOrder() {
-		inOrderTraversal(root);
+		inOrderTraversalPrinting(root);
 	}
+	
+	public void inOrderQueueine(BSTNode<T> root, SLL<T> queue) {
+		inOrderTraversalQueueing(root, queue);
+	}
+	
 
 	// Private methods.
 
@@ -189,17 +188,28 @@ class BSTNode<T extends Comparable<T>> {
 	}
 
 	private void visit(BSTNode<T> r) {
-		if (r != null)
+		if (r != null) {
 			System.out.println(r.getData());
+		}	
 	}
 
-	private void inOrderTraversal(BSTNode<T> r) {
+	private void inOrderTraversalPrinting(BSTNode<T> r) {
 		if (r == null)
 			return;
 		else {
-			inOrderTraversal(r.getLeft());
+			inOrderTraversalPrinting(r.getLeft());
 			visit(r);
-			inOrderTraversal(r.getRight());
+			inOrderTraversalPrinting(r.getRight());
 		}
 	}
+	private void inOrderTraversalQueueing(BSTNode<T> r, SLL<T>queue) {
+		if (r == null)
+			return;
+		else {
+			inOrderTraversalQueueing(r.getLeft(), queue);
+			queue.add(root.getData());
+			inOrderTraversalQueueing(r.getLeft(), queue);
+		}
+	}
+	
 }

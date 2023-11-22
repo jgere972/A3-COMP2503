@@ -36,10 +36,10 @@ public class A3 {
 	private int topN = 4;
 	private int totalwordCount = 0;
 	private Scanner input = new Scanner(System.in);
-	private BST<Avenger> alphabticalBST = new BST<>();
-	private BST<Avenger> mentionBST = new BST<Avenger>(new AvengerComparatorMentionOrder());
-	private BST<Avenger> mostPopularAvengerBST = new BST<Avenger>(new AvengerComparatorFreqDesc());
-	private BST<Avenger> mostPopularPerformerBST = new BST<Avenger>(new AvengerPerformerComparatorFreqDesc());
+//	private BST<Avenger> alphabticalBST = new BST<Avenger>();
+	private BST<Avenger> mentionBST = new BST<Avenger>();
+//	private BST<Avenger> mostPopularAvengerBST = new BST<Avenger>(new AvengerComparatorFreqDesc());
+//	private BST<Avenger> mostPopularPerformerBST = new BST<Avenger>(new AvengerPerformerComparatorFreqDesc());
 	
 	public static void main(String[] args) {
 		A3 a3 = new A3();
@@ -130,7 +130,7 @@ public class A3 {
 	 *  If not add the avenger to mentioned BST object
 	 */
 	private void checkTree(Avenger a) {
-		if (mentionBST.find(a) == null) {
+		if (mentionBST.find(a) != null) {
 			mentionBST.add(a);
 		}
 	}
@@ -167,12 +167,12 @@ public class A3 {
 
 		// TODO: Print the actual height and the optimal height for each of the four trees.
 		System.out.println("Height of the mention order tree is : " + mentionBST.height()
-				+ " (Optimal height for this tree is : " + mentionBST.height() + ")");
-		System.out.println("Height of the alphabetical tree is : " + alphabticalBST.height()
-				+ " (Optimal height for this tree is : " + alphabticalBST.height()+ ")");
-		System.out.println("Height of the most frequent tree is : " + mostPopularAvengerBST.height()
-				+ " (Optimal height for this tree is : " + mostPopularAvengerBST.height() + ")");
-		System.out.println("Height of the most frequent performer tree is : " + mostPopularPerformerBST.height()
-		+ " (Optimal height for this tree is : " + mostPopularPerformerBST.height() + ")");
+				+ " (Optimal height for this tree is : " + mentionBST.optimalHeight(mentionBST.height()) + ")");
+//		System.out.println("Height of the alphabetical tree is : " + alphabticalBST.height()
+//				+ " (Optimal height for this tree is : " + alphabticalBST.optimalHeight(alphabticalBST.height())+ ")");
+//		System.out.println("Height of the most frequent tree is : " + mostPopularAvengerBST.height()
+//				+ " (Optimal height for this tree is : " + mostPopularAvengerBST.optimalHeight(mostPopularAvengerBST.height()) + ")");
+//		System.out.println("Height of the most frequent performer tree is : " + mostPopularPerformerBST.height()
+//		+ " (Optimal height for this tree is : " + mostPopularPerformerBST.optimalHeight(mostPopularPerformerBST.height()) + ")");
 	}
 }

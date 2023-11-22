@@ -6,6 +6,7 @@ public class Avenger implements Comparable<Avenger> {
 	private int nameCount;
 	private int aliasCount;
 	private int actorCount;
+	private int mentionIndex;
 
 	// Constructor
 	public Avenger(String alias, String name, String actor) {
@@ -51,6 +52,14 @@ public class Avenger implements Comparable<Avenger> {
 
 	public void incrementActorCount() {
 		actorCount++;
+	}
+	
+	public void setMentionIndex(int i) {
+		mentionIndex = i;
+	}
+	
+	public int getMentionIndex() {
+		return mentionIndex;
 	}
 
 	@Override
