@@ -1,5 +1,10 @@
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 
 /**
@@ -62,14 +67,17 @@ public class A3 {
 		toDelete = new Avenger("hulk", "banner", "ruffalo");
 		alphabeticalBST.delete(toDelete);
 		
-		iterator = alphabeticalBST.iterator();
-		
-		// adding, but not in the right order: find a way to add using the comparators
-		for (Avenger av: alphabeticalBST) {
-			mentionBST.add(av);
-			mostPopularAvengerBST.add(av);
-			mostPopularPerformerBST.add(av);
-		}
+		Queue<Avenger> queue = new LinkedList<>();
+	    Iterator<Avenger> iterator = alphabeticalBST.iterator();
+	    while (iterator.hasNext()) {
+	    	queue.add(iterator.next());
+	    }
+	    while (!queue.isEmpty()) {
+	    	Avenger addToQueue = queue.remove();
+	    	mentionBST.add(addToQueue, new AvengerComparatorMentionOrder());
+	    	mostPopularAvengerBST.add(addToQueue, new AvengerComparatorFreqDesc()); // change to top four now
+	    	mostPopularPerformerBST.add(addToQueue, new AvengerPerformerComparatorFreqDesc()); // change to top four now
+	    }
 	}
 
 	/**
@@ -98,7 +106,7 @@ public class A3 {
 						if (!checkIfExist(captainAmerica)) {
 							captainAmerica = createNew(index1);
 							alphabeticalBST.add(captainAmerica);
-							captainAmerica.setMentionIndex(alphabeticalBST.size() + 1);
+							captainAmerica.setMentionIndex(alphabeticalBST.size());
 						}
 						increment(index2, captainAmerica);
 					}
@@ -106,7 +114,7 @@ public class A3 {
 						if (!checkIfExist(ironMan)) {
 							ironMan = createNew(index1);
 							alphabeticalBST.add(ironMan);
-							ironMan.setMentionIndex(alphabeticalBST.size() + 1);
+							ironMan.setMentionIndex(alphabeticalBST.size());
 						}
 						increment(index2, ironMan);
 					}
@@ -114,7 +122,7 @@ public class A3 {
 						if (!checkIfExist(blackWidow)) {
 							blackWidow = createNew(index1);
 							alphabeticalBST.add(blackWidow);
-							blackWidow.setMentionIndex(alphabeticalBST.size() + 1);
+							blackWidow.setMentionIndex(alphabeticalBST.size());
 						}
 						increment(index2, blackWidow);
 					}
@@ -123,7 +131,7 @@ public class A3 {
 						if (!checkIfExist(hulk)) {
 							hulk = createNew(index1);
 							alphabeticalBST.add(hulk);
-							hulk.setMentionIndex(alphabeticalBST.size() + 1);
+							hulk.setMentionIndex(alphabeticalBST.size());
 						}
 						increment(index2, hulk);
 					}
@@ -132,7 +140,7 @@ public class A3 {
 						if (!checkIfExist(blackPanther)) {
 							blackPanther = createNew(index1);
 							alphabeticalBST.add(blackPanther);
-							blackPanther.setMentionIndex(alphabeticalBST.size() + 1);
+							blackPanther.setMentionIndex(alphabeticalBST.size());
 						}
 						increment(index2, blackPanther);
 					}
@@ -140,7 +148,7 @@ public class A3 {
 						if (!checkIfExist(thor)) {
 							thor = createNew(index1);
 							alphabeticalBST.add(thor);
-							thor.setMentionIndex(alphabeticalBST.size() + 1);
+							thor.setMentionIndex(alphabeticalBST.size());
 						}
 						increment(index2, thor);
 					}
@@ -148,7 +156,7 @@ public class A3 {
 						if (!checkIfExist(hawkEye)) {
 							hawkEye = createNew(index1);
 							alphabeticalBST.add(hawkEye);
-							hawkEye.setMentionIndex(alphabeticalBST.size() + 1);
+							hawkEye.setMentionIndex(alphabeticalBST.size());
 						}
 						increment(index2, hawkEye);
 					}
@@ -156,7 +164,7 @@ public class A3 {
 						if (!checkIfExist(warMachine)) {
 							warMachine = createNew(index1);
 							alphabeticalBST.add(warMachine);
-							warMachine.setMentionIndex(alphabeticalBST.size() + 1);
+							warMachine.setMentionIndex(alphabeticalBST.size());
 						}
 						increment(index2, warMachine);
 					}
@@ -164,7 +172,7 @@ public class A3 {
 						if (!checkIfExist(spiderMan)) {
 							spiderMan = createNew(index1);
 							alphabeticalBST.add(spiderMan);
-							spiderMan.setMentionIndex(alphabeticalBST.size() + 1);
+							spiderMan.setMentionIndex(alphabeticalBST.size());
 						}
 						increment(index2, spiderMan);
 					}
@@ -172,7 +180,7 @@ public class A3 {
 						if (!checkIfExist(winterSoldier)) {
 							winterSoldier = createNew(index1);
 							alphabeticalBST.add(winterSoldier);
-							winterSoldier.setMentionIndex(alphabeticalBST.size() + 1);
+							winterSoldier.setMentionIndex(alphabeticalBST.size());
 						}
 						increment(index2, winterSoldier);
 					}
@@ -226,22 +234,12 @@ public class A3 {
 		System.out.println("All mentioned avengers in alphabetical order:");
 		alphabeticalBST.printInOrder();
 		System.out.println();
-
-		// TODO: Print the actual height and the optimal height for each of the four trees.
-//		System.out.println("Height of the mention order tree is : " + ??
-//				+ " (Optimal height for this tree is : " + ?? + ")");
-//		System.out.println("Height of the alphabetical tree is : " + ??
-//				+ " (Optimal height for this tree is : " + ?? + ")");
-//		System.out.println("Height of the most frequent tree is : " + ??
-//				+ " (Optimal height for this tree is : " + ?? + ")");
-//		System.out.println("Height of the most frequent performer tree is : " + ??
-//		+ " (Optimal height for this tree is : " + ?? + ")");
 		
-		// add optimal heights
-		System.out.println("Height of the mention order tree is : " + mentionBST.height());
-		System.out.println("Height of the alphabetical order tree is : " + alphabeticalBST.height());
-		System.out.println("Height of the most frequent order tree is : " + mostPopularAvengerBST.height());
-		System.out.println("Height of the most frequent performer order tree is : " + mostPopularPerformerBST.height());
+		// add optimal heights, replace the "ADD HERE" pls
+		System.out.println("Height of the mention order tree is : " + mentionBST.height() + " (Optimal height for this tree is : " + "ADD HERE" + ")");
+		System.out.println("Height of the alphabetical order tree is : " + alphabeticalBST.height() + " (Optimal height for this tree is : " + "ADD HERE" + ")");
+		System.out.println("Height of the most frequent order tree is : " + mostPopularAvengerBST.height() + " (Optimal height for this tree is : " + "ADD HERE" + ")");
+		System.out.println("Height of the most frequent performer order tree is : " + mostPopularPerformerBST.height() + " (Optimal height for this tree is : " + "ADD HERE" + ")");
 
 	}
 }

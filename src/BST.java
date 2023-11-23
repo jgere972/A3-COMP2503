@@ -36,6 +36,17 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 		}
 	}
 	
+	public void add(T d, Comparator<T> comp) {
+		BSTNode<T> n = new BSTNode<T>(d);
+		if (root == null) {
+			size++;
+			root = n;
+		} else {
+			size++;
+			add(root, n, comp);
+		}
+	}
+	
 	public void delete(T d) {
 		root = delete(root, d);
 	}
@@ -89,6 +100,26 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
                 r.setRight(n);
             else
                 add(r.getRight(), n);
+        }
+	}
+	
+	private void add(BSTNode<T> r, BSTNode<T> n, Comparator<T> comp) {
+        if (r == null) {
+            r = n;
+            return;
+        }
+        int c = comp.compare(n.getData(), r.getData());
+        if (c < 0) {   
+            if (r.getLeft() == null)
+                r.setLeft(n);
+            else
+                add(r.getLeft(), n, comp);
+        }
+        else {
+            if (r.getRight() == null)
+                r.setRight(n);
+            else
+                add(r.getRight(), n, comp);
         }
 	}
 	
