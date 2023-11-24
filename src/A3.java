@@ -1,9 +1,6 @@
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -75,8 +72,8 @@ public class A3 {
 	    while (!queue.isEmpty()) {
 	    	Avenger addToQueue = queue.remove();
 	    	mentionBST.add(addToQueue, new AvengerComparatorMentionOrder());
-	    	mostPopularAvengerBST.add(addToQueue, new AvengerComparatorFreqDesc()); // change to top four now
-	    	mostPopularPerformerBST.add(addToQueue, new AvengerPerformerComparatorFreqDesc()); // change to top four now
+	    	mostPopularAvengerBST.add(addToQueue, new AvengerComparatorFreqDesc());
+	    	mostPopularPerformerBST.add(addToQueue, new AvengerPerformerComparatorFreqDesc());
 	    }
 	}
 
@@ -213,6 +210,11 @@ public class A3 {
 	 * print the results
 	 */
 	private void printResults() {
+		BST<Avenger> topNAvengerBST = new BST<Avenger>();
+		BST<Avenger> topNPerformerBST = new BST<Avenger>();
+		Queue<Avenger> queue = new LinkedList<>();
+		Iterator<Avenger> iterator;
+		
 		System.out.println("Total number of words: " + totalwordcount);
 		System.out.println("Number of Avengers Mentioned: " + alphabeticalBST.size());
 		System.out.println();
@@ -221,14 +223,30 @@ public class A3 {
 		mentionBST.printInOrder();
 		System.out.println();
 		
-		// change to print topN
 		System.out.println("Top " + topN + " most popular avengers:");
-		mostPopularAvengerBST.printTopN(topN);
+		queue.clear();
+	    iterator = mostPopularAvengerBST.iterator();
+	    while (iterator.hasNext()) {
+	    	queue.add(iterator.next());
+	    }
+	    while (!queue.isEmpty() && topNAvengerBST.size() < topN) {
+	    	Avenger addToQueue = queue.remove();
+	    	topNAvengerBST.add(addToQueue, new AvengerComparatorFreqDesc());
+	    }
+	    topNAvengerBST.printInOrder();
 		System.out.println();
 
-		// change to print topN
 		System.out.println("Top " + topN + " most popular performers:");
-		mostPopularPerformerBST.printTopN(topN);
+		queue.clear();
+	    iterator = mostPopularPerformerBST.iterator();
+	    while (iterator.hasNext()) {
+	    	queue.add(iterator.next());
+	    }
+	    while (!queue.isEmpty() && topNPerformerBST.size() < topN) {
+	    	Avenger addToQueue = queue.remove();
+	    	topNPerformerBST.add(addToQueue, new AvengerPerformerComparatorFreqDesc());
+	    }
+	    topNPerformerBST.printInOrder();
 		System.out.println();
 
 		System.out.println("All mentioned avengers in alphabetical order:");
@@ -236,9 +254,8 @@ public class A3 {
 		System.out.println();
 		
 		System.out.println("Height of the mention order tree is : " + mentionBST.height() + " (Optimal height for this tree is : " + mentionBST.optimalHeight(mentionBST.size()) + ")");
-		System.out.println("Height of the alphabetical order tree is : " + alphabeticalBST.height() + " (Optimal height for this tree is : " + alphabeticalBST.optimalHeight(alphabeticalBST.size()) + ")");
-		System.out.println("Height of the most frequent order tree is : " + mostPopularAvengerBST.height() + " (Optimal height for this tree is : " + mostPopularAvengerBST.optimalHeight(mostPopularAvengerBST.size()) + ")");
-		System.out.println("Height of the most frequent performer order tree is : " + mostPopularPerformerBST.height() + " (Optimal height for this tree is : " + mostPopularPerformerBST.optimalHeight(mostPopularPerformerBST.size()) + ")");
-
+		System.out.println("Height of the alphabetical tree is : " + alphabeticalBST.height() + " (Optimal height for this tree is : " + alphabeticalBST.optimalHeight(alphabeticalBST.size()) + ")");
+		System.out.println("Height of the most frequent tree is : " + mostPopularAvengerBST.height() + " (Optimal height for this tree is : " + mostPopularAvengerBST.optimalHeight(mostPopularAvengerBST.size()) + ")");
+		System.out.println("Height of the most frequent performer tree is : " + mostPopularPerformerBST.height() + " (Optimal height for this tree is : " + mostPopularPerformerBST.optimalHeight(mostPopularPerformerBST.size()) + ")");
 	}
 }

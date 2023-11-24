@@ -74,12 +74,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	public void printLevelOrder() {
 		levelOrderTraversal(root);
 	}
-	
-	public void printTopN(int topN) {
-		int counter = 0;
-		traversalTopN(root, topN, counter);
-	}
-	
+
 	private T find(T d, BSTNode<T> r) {
 		if (r == null || d == null)
 			return null;
@@ -198,19 +193,6 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	private void visit(BSTNode<T> r) {
 		if (r != null)
 			System.out.println(r.getData());
-	}
-	
-	private void traversalTopN(BSTNode<T> r, int topN, int counter) {
-		if (r == null)
-			return;
-		else {
-			while (counter < topN) {
-				traversalTopN(r.getLeft(), topN, counter);
-				visit(r);
-				counter ++;
-				traversalTopN(r.getRight(), topN, counter);
-			}
-		}
 	}
 
 	private void inOrderTraversal(BSTNode<T> r) {
