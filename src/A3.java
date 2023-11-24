@@ -223,12 +223,12 @@ public class A3 {
 		
 		// change to print topN
 		System.out.println("Top " + topN + " most popular avengers:");
-		mostPopularAvengerBST.printInOrder();
+		mostPopularAvengerBST.printTopN(topN);
 		System.out.println();
 
 		// change to print topN
 		System.out.println("Top " + topN + " most popular performers:");
-		mostPopularPerformerBST.printInOrder();
+		mostPopularPerformerBST.printTopN(topN);
 		System.out.println();
 
 		System.out.println("All mentioned avengers in alphabetical order:");
