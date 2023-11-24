@@ -235,11 +235,10 @@ public class A3 {
 		alphabeticalBST.printInOrder();
 		System.out.println();
 		
-		// add optimal heights, replace the "ADD HERE" pls
-		System.out.println("Height of the mention order tree is : " + mentionBST.height() + " (Optimal height for this tree is : " + "ADD HERE" + ")");
-		System.out.println("Height of the alphabetical order tree is : " + alphabeticalBST.height() + " (Optimal height for this tree is : " + "ADD HERE" + ")");
-		System.out.println("Height of the most frequent order tree is : " + mostPopularAvengerBST.height() + " (Optimal height for this tree is : " + "ADD HERE" + ")");
-		System.out.println("Height of the most frequent performer order tree is : " + mostPopularPerformerBST.height() + " (Optimal height for this tree is : " + "ADD HERE" + ")");
+		System.out.println("Height of the mention order tree is : " + mentionBST.height() + " (Optimal height for this tree is : " + mentionBST.optimalHeight(mentionBST.size()) + ")");
+		System.out.println("Height of the alphabetical order tree is : " + alphabeticalBST.height() + " (Optimal height for this tree is : " + alphabeticalBST.optimalHeight(alphabeticalBST.size()) + ")");
+		System.out.println("Height of the most frequent order tree is : " + mostPopularAvengerBST.height() + " (Optimal height for this tree is : " + mostPopularAvengerBST.optimalHeight(mostPopularAvengerBST.size()) + ")");
+		System.out.println("Height of the most frequent performer order tree is : " + mostPopularPerformerBST.height() + " (Optimal height for this tree is : " + mostPopularPerformerBST.optimalHeight(mostPopularPerformerBST.size()) + ")");
 
 	}
 }

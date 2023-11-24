@@ -54,6 +54,10 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	public int height() {
 		return height(root);
 	}
+	
+	public int optimalHeight(int n) {
+		return (int) Math.ceil(Math.log(n + 1) / Math.log(2) - 1);
+	}
 
 	public void printInOrder() {
 		inOrderTraversal(root);
