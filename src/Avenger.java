@@ -68,6 +68,13 @@ public class Avenger implements Comparable<Avenger> {
 		return mentionIndex;
 	}
 	
+	
+	/**
+	 * Overrides the equals method to check if two Avenger objects are equal based on their Alias.
+	 * 
+	 * @param obj The object to compare with this Avenger
+	 * @return True if the heroAlias of both Avengers are equal, false otherwise
+	 */
 	@Override
 	public boolean equals(Object obj) { // Matching compareTo to order Alias alphabetically
 		if (obj == null) return false;
@@ -76,13 +83,28 @@ public class Avenger implements Comparable<Avenger> {
 		if (this.heroAlias.compareTo(av.getAlias()) == 0) return true;
 		else return false;
 	}
-
+	
+	
+	/**
+	 * Overrides the toString method to provide a string representation of Avengers. 
+	 * The string includes heroAlias, heroName, performer, and frequency counts
+	 * 
+	 * @return A formatted string representing the Avenger object
+	 */
 	@Override
 	public String toString() {
 		return heroAlias + " aka " + heroName + " performed by " + performer + " mentioned " + "(n: " + nameFreq
 				+ " + a: " + aliasFreq + " + p: " + performerFreq + ")" + " time(s)";
 	}
 	
+	
+	/**
+	 * Overrides the compareTo method to provide a natural ordering based on Alias.
+	 * 
+	 * @param other The Avenger object to compare with this Avenger
+	 * @return A negative, zero, or positive if the Avenger is less than, equal to,
+	 *         or greater than the specified Avenger, based on their Alias
+	 */
 	@Override
 	public int compareTo(Avenger other) {
 		if (other == null) return -1;

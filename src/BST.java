@@ -17,14 +17,30 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 		size = 0;
 	}
 	
+	/**
+     * Returns the number of elements in the BST.
+     * 
+     * @return The number of elements in the BST.
+     */
 	public int size() {
 		return counter(root);
 	}
 	
+    /**
+     * Finds an element in the BST.
+     * 
+     * @param d, The element to find.
+     * @return The found element, or null if not found.
+     */
 	public T find(T d) {
 		return find(d, root);
 	}
 	
+    /**
+     * Adds an element to the BST
+     * 
+     * @param d, The element to add.
+     */
 	public void add(T d) {
 		BSTNode<T> n = new BSTNode<T>(d);
 		if (root == null) {
@@ -36,6 +52,12 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 		}
 	}
 	
+    /**
+     * Adds an element to the BST with a comparator.
+     * 
+     * @param d, The element to add.
+     * @param comp, The comparator to use for ordering elements.
+     */
 	public void add(T d, Comparator<T> comp) {
 		BSTNode<T> n = new BSTNode<T>(d);
 		if (root == null) {
@@ -47,33 +69,55 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 		}
 	}
 	
+    /**
+     * Deletes an element from the BST.
+     * 
+     * @param d The element to delete.
+     */
 	public void delete(T d) {
 		root = delete(root, d);
 	}
 	
+    /**
+     * Returns the height of the BST.
+     * 
+     * @return The height of the BST.
+     */
 	public int height() {
 		return height(root);
 	}
 	
+    /**
+     * Returns the optimal height of the BST for a given number of elements.
+     * 
+     * @param n, The number of elements in the BST.
+     * @return The optimal height of the BST.
+     */
 	public int optimalHeight(int n) {
 		return (int) Math.ceil(Math.log(n + 1) / Math.log(2) - 1);
 	}
 
+    /**
+     * Prints the elements of the BST in in-order traversal.
+     */
 	public void printInOrder() {
 		inOrderTraversal(root);
 	}
 
+    /**
+     * Prints the elements of the BST in pre-order traversal.
+     */
 	public void printPreOrder() {
 		preOrderTraversal(root);
 	}
 
+    /**
+     * Prints the elements of the BST in post-order traversal.
+     */
 	public void printPostOrder() {
 		postOrderTraversal(root);
 	}
 
-	public void printLevelOrder() {
-		levelOrderTraversal(root);
-	}
 
 	private T find(T d, BSTNode<T> r) {
 		if (r == null || d == null) return null;
@@ -83,6 +127,9 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 		else return find(d, r.getRight());
 	}
 	
+	/**
+	 * Private internal add method that public method uses.
+	 */
 	private void add(BSTNode<T> r, BSTNode<T> n) {
         if (r == null) {
             r = n;
@@ -99,6 +146,9 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
         }
 	}
 	
+	/**
+	 * Private internal add method that public method uses (for comparators).
+	 */
 	private void add(BSTNode<T> r, BSTNode<T> n, Comparator<T> comp) {
         if (r == null) {
             r = n;
@@ -115,6 +165,9 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
         }
 	}
 	
+	/**
+	 * Private internal delete method that public method uses.
+	 */
 	private BSTNode<T> delete(BSTNode<T> r, T d) {
 	    if (r == null) return null;
 	    int c = d.compareTo(r.getData());
@@ -129,6 +182,9 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	    return r;
 	}
 	
+	/**
+	 * Finds and returns the minimum value in the subtree rooted at the specified node.
+	 */
 	private T minValue(BSTNode<T> root) {
 	    T minValue = root.getData();
 	    while (root.getLeft() != null) {
@@ -138,6 +194,9 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	    return minValue;
 	}
 	
+	/**
+	 * Recursively counts the number of nodes in the subtree rooted at the specified node.
+	 */
 	private int counter(BSTNode<T> r) {
 		int count = 0;
 		if (r == null) return count;
@@ -146,6 +205,9 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 		return leftCount + rightCount + 1;
 	}
 	
+	/**
+	 * Private internal height method that public method uses.
+	 */
 	private int height(BSTNode<T> r) {
 		int h = -1;
 
@@ -163,10 +225,18 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
         return h;
 	}
 	
+	/**
+	 * Visits and prints the data of the specified node.
+	 */
 	private void visit(BSTNode<T> r) {
 		if (r != null) System.out.println(r.getData());
 	}
 
+	/**
+	 * Performs an in-order traversal of the subtree rooted at the specified node.
+	 * 
+	 * @param r The root of the subtree.
+	 */
 	private void inOrderTraversal(BSTNode<T> r) {
 		if (r == null) return;
 		else {
@@ -176,6 +246,11 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 		}
 	}
 
+	/**
+	 * Performs a pre-order traversal of the subtree rooted at the specified node.
+	 * 
+	 * @param r The root of the subtree.
+	 */
 	private void preOrderTraversal(BSTNode<T> r) {
 		if (r == null) return;
 		else {
@@ -185,6 +260,11 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 		}
 	}
 
+	/**
+	 * Performs a post-order traversal of the subtree rooted at the specified node.
+	 * 
+	 * @param r The root of the subtree.
+	 */
 	private void postOrderTraversal(BSTNode<T> r) {
 		if (r == null) return;
 		else {
@@ -194,20 +274,13 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 		}
 	}
 
-	private void levelOrderTraversal(BSTNode<T> r) {
-//		Queue<BSTNode<T>> list = new LinkedList<>();
-//		if(r != null)
-//			list.add(r);
-//		while(!list.isEmpty()) {
-//			BSTNode<T> curr = list.remove();
-//			visit(curr);
-//			list.add(curr.getLeft());
-//			list.add(curr.getRight());
-//		}
-	}
-
 	private Queue<T> queue = new LinkedList<T>();
 	
+	/**
+	 * Adds data of the specified node to the queue.
+	 * 
+	 * @param root, The node to add to the queue.
+	 */
 	private void addToQueue(BSTNode<T> root) {
 		if (root != null) queue.add(root.getData());
 	}
@@ -221,6 +294,11 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 		traverse(root, traversalType);
 	}
 	
+    /**
+     * Traverses the BST based on the specified traversal type
+     * 
+     * @param traversalType The type of traversal: INORDER, PREORDER, POSTORDER.
+     */
 	private void traverse(BSTNode<T> root, int traversalType) {
 		if (root == null) return;
 		else {

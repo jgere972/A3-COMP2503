@@ -53,12 +53,20 @@ public class A3 {
 		a3.run();
 	}
 
+	
+    /**
+	 * Initiates the program by reading input, creating alternative order BSTs then printing results.
+	 */
 	public void run() {
 		readInput();
 		createdAlternativeOrderBSTs();
 		printResults();
 	}
 
+	
+    /**
+	 * Constructs alternative order BSTs and also deleting specific the nodes, of Hawkeye and Hulk.
+	 */
 	private void createdAlternativeOrderBSTs() {
 		toDelete = new Avenger("hawkeye", "barton", "renner");
 		alphabeticalBST.delete(toDelete);
@@ -78,7 +86,7 @@ public class A3 {
 	}
 
 	/**
-	 * read the input stream and keep track how many times avengers are mentioned by
+	 * read the input stream and keep track how many times Avengers are mentioned by
 	 * alias or last name or performer name.
 	 */
 	private void readInput() {
@@ -186,28 +194,58 @@ public class A3 {
 		}
 	}
 	
+	
+	/**
+	 * Checks the number of nodes in the given BST.
+	 * 
+	 * @param BST, The Binary Search Tree
+	 * @return The number of nodes in the BST
+	 */
 	public int nodeCount(BST<Avenger> bst) {
 		return bst.size();
 	}
 	
+	
+	/**
+	 * Creates a new Avenger object based on the given index.
+	 * 
+	 * @param index, The index of the avengerRoster array
+	 * @return A new Avenger object
+	 */
+
 	public Avenger createNew(int index) {
 		Avenger newAvenger = new Avenger(avengerRoster[index][0], avengerRoster[index][1], avengerRoster[index][2]);
 		return newAvenger;
 	}
 	
+	
+	/**
+	 * Increments the alias, name, or actor count of Avengers based on the given index.
+	 * 
+	 * @param index, The index to determine which count to increment
+	 * @param av, The Avenger object to increment the count
+	 */
 	public void increment(int index, Avenger av) {
 		if (index == 0) av.incrementAliasCount();
 		else if (index == 1) av.incrementNameCount();
 		else av.incrementActorCount();
 	}
 	
+	
+	/**
+	 * Checks if an Avenger object already exists in the alphabetical BST.
+	 * 
+	 * @param av, The Avenger object to check
+	 * @return True if the Avenger exists, false otherwise
+	 */
 	public boolean checkIfExist(Avenger av) {
 		if (alphabeticalBST.find(av) != null) return true;
 		else return false;
 	}
 
-	/**
-	 * print the results
+    /**
+	 * Prints the results, including total word count, number of Avengers mentioned,
+	 * lists of Avengers in various orders, and the (optimal) height  of each BST.
 	 */
 	private void printResults() {
 		BST<Avenger> topNAvengerBST = new BST<Avenger>();
