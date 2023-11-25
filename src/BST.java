@@ -76,15 +76,11 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	}
 
 	private T find(T d, BSTNode<T> r) {
-		if (r == null || d == null)
-			return null;
+		if (r == null || d == null) return null;
 		int c = d.compareTo(r.getData());
-		if (c == 0)
-			return r.getData();
-		else if (c < 0)
-			return find(d, r.getLeft());
-		else
-			return find(d, r.getRight());
+		if (c == 0) return r.getData();
+		else if (c < 0) return find(d, r.getLeft());
+		else return find(d, r.getRight());
 	}
 	
 	private void add(BSTNode<T> r, BSTNode<T> n) {
@@ -94,16 +90,12 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
         }
         int c = n.compareTo(r);
         if (c < 0) {   
-            if (r.getLeft() == null)
-                r.setLeft(n);
-            else
-                add(r.getLeft(), n);
+            if (r.getLeft() == null) r.setLeft(n);
+            else add(r.getLeft(), n);
         }
         else {
-            if (r.getRight() == null)
-                r.setRight(n);
-            else
-                add(r.getRight(), n);
+            if (r.getRight() == null) r.setRight(n);
+            else add(r.getRight(), n);
         }
 	}
 	
@@ -114,34 +106,23 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
         }
         int c = comp.compare(n.getData(), r.getData());
         if (c < 0) {   
-            if (r.getLeft() == null)
-                r.setLeft(n);
-            else
-                add(r.getLeft(), n, comp);
+            if (r.getLeft() == null) r.setLeft(n);
+            else add(r.getLeft(), n, comp);
         }
         else {
-            if (r.getRight() == null)
-                r.setRight(n);
-            else
-                add(r.getRight(), n, comp);
+            if (r.getRight() == null) r.setRight(n);
+            else add(r.getRight(), n, comp);
         }
 	}
 	
 	private BSTNode<T> delete(BSTNode<T> r, T d) {
-	    if (r == null)
-	        return null;
+	    if (r == null) return null;
 	    int c = d.compareTo(r.getData());
-	    if (c < 0) {
-	        r.setLeft(delete(r.getLeft(), d));
-	    } 
-	    else if (c > 0) {
-	        r.setRight(delete(r.getRight(), d));
-	    } 
+	    if (c < 0) r.setLeft(delete(r.getLeft(), d));
+	    else if (c > 0) r.setRight(delete(r.getRight(), d));
 	    else {
-	        if (r.getLeft() == null)
-	            return r.getRight();
-	        else if (r.getRight() == null)
-	            return r.getLeft();
+	        if (r.getLeft() == null) return r.getRight();
+	        else if (r.getRight() == null) return r.getLeft();
 	        r.setData(minValue(r.getRight()));
 	        r.setRight(delete(r.getRight(), r.getData()));
 	    }
@@ -159,8 +140,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	
 	private int counter(BSTNode<T> r) {
 		int count = 0;
-		if (r == null)
-			return count;
+		if (r == null) return count;
 		int leftCount = counter(r.getLeft());
 		int rightCount = counter(r.getRight());
 		return leftCount + rightCount + 1;
@@ -169,35 +149,26 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	private int height(BSTNode<T> r) {
 		int h = -1;
 
-        if (r == null)
-            return h;
+        if (r == null) return h;
         else {
             int left = height(r.getLeft());
             left ++;
             int right = height(r.getRight());
             right ++;
 
-            if (left > right) {
-                h = left;
-            }
-            else if (left < right) {
-                h = right;
-            }
-            else {
-                h = left;
-            }
+            if (left > right) h = left;
+            else if (left < right) h = right;
+            else h = left;
         }
         return h;
 	}
 	
 	private void visit(BSTNode<T> r) {
-		if (r != null)
-			System.out.println(r.getData());
+		if (r != null) System.out.println(r.getData());
 	}
 
 	private void inOrderTraversal(BSTNode<T> r) {
-		if (r == null)
-			return;
+		if (r == null) return;
 		else {
 			inOrderTraversal(r.getLeft());
 			visit(r);
@@ -206,8 +177,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	}
 
 	private void preOrderTraversal(BSTNode<T> r) {
-		if (r == null)
-			return;
+		if (r == null) return;
 		else {
 			visit(r);
 			preOrderTraversal(r.getLeft());
@@ -216,8 +186,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T>{
 	}
 
 	private void postOrderTraversal(BSTNode<T> r) {
-		if (r == null)
-			return;
+		if (r == null) return;
 		else {
 			postOrderTraversal(r.getLeft());
 			postOrderTraversal(r.getRight());

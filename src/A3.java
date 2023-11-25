@@ -46,6 +46,7 @@ public class A3 {
 	private Avenger toDelete;
 	
 	Iterator<Avenger> iterator;
+	Queue<Avenger> queue;
 	
 	public static void main(String[] args) {
 		A3 a3 = new A3();
@@ -64,11 +65,10 @@ public class A3 {
 		toDelete = new Avenger("hulk", "banner", "ruffalo");
 		alphabeticalBST.delete(toDelete);
 		
-		Queue<Avenger> queue = new LinkedList<>();
-	    Iterator<Avenger> iterator = alphabeticalBST.iterator();
-	    while (iterator.hasNext()) {
+		queue = new LinkedList<>();
+	    iterator = alphabeticalBST.iterator();
+	    while (iterator.hasNext()) 
 	    	queue.add(iterator.next());
-	    }
 	    while (!queue.isEmpty()) {
 	    	Avenger addToQueue = queue.remove();
 	    	mentionBST.add(addToQueue, new AvengerComparatorMentionOrder());
@@ -212,8 +212,6 @@ public class A3 {
 	private void printResults() {
 		BST<Avenger> topNAvengerBST = new BST<Avenger>();
 		BST<Avenger> topNPerformerBST = new BST<Avenger>();
-		Queue<Avenger> queue = new LinkedList<>();
-		Iterator<Avenger> iterator;
 		
 		System.out.println("Total number of words: " + totalwordcount);
 		System.out.println("Number of Avengers Mentioned: " + alphabeticalBST.size());
@@ -226,9 +224,8 @@ public class A3 {
 		System.out.println("Top " + topN + " most popular avengers:");
 		queue.clear();
 	    iterator = mostPopularAvengerBST.iterator();
-	    while (iterator.hasNext()) {
+	    while (iterator.hasNext())
 	    	queue.add(iterator.next());
-	    }
 	    while (!queue.isEmpty() && topNAvengerBST.size() < topN) {
 	    	Avenger addToQueue = queue.remove();
 	    	topNAvengerBST.add(addToQueue, new AvengerComparatorFreqDesc());
@@ -239,9 +236,8 @@ public class A3 {
 		System.out.println("Top " + topN + " most popular performers:");
 		queue.clear();
 	    iterator = mostPopularPerformerBST.iterator();
-	    while (iterator.hasNext()) {
+	    while (iterator.hasNext())
 	    	queue.add(iterator.next());
-	    }
 	    while (!queue.isEmpty() && topNPerformerBST.size() < topN) {
 	    	Avenger addToQueue = queue.remove();
 	    	topNPerformerBST.add(addToQueue, new AvengerPerformerComparatorFreqDesc());

@@ -70,18 +70,11 @@ public class Avenger implements Comparable<Avenger> {
 	
 	@Override
 	public boolean equals(Object obj) { // Matching compareTo to order Alias alphabetically
-		if (obj == null) {
-			return false;
-		}
-		if (obj == this) {
-			return true;
-		}
+		if (obj == null) return false;
+		if (obj == this) return true;
 		Avenger av = (Avenger) obj;
-		if (this.heroAlias.compareTo(av.getAlias()) == 0) {
-			return true;
-		} else {
-			return false;
-		}
+		if (this.heroAlias.compareTo(av.getAlias()) == 0) return true;
+		else return false;
 	}
 
 	@Override
@@ -92,8 +85,7 @@ public class Avenger implements Comparable<Avenger> {
 	
 	@Override
 	public int compareTo(Avenger other) {
-		if (other == null)
-			return -1;
+		if (other == null) return -1;
 		return this.getAlias().compareTo(other.getAlias());
 	}
 }

@@ -10,9 +10,7 @@ public class AvengerComparatorFreqDesc implements Comparator <Avenger>{
 	 */
 	public int compare(Avenger a1, Avenger a2) {
 		int diff = a2.getTotalCount() - a1.getTotalCount();
-		if (diff == 0) {
-			return a1.getActor().compareTo(a2.getActor());
-		}
+		if (diff == 0) return a1.getActor().compareTo(a2.getActor());
 		return diff;
 	}
 }
