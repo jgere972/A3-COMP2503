@@ -1,5 +1,7 @@
 
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 /**
@@ -22,157 +24,272 @@ public class A3 {
 			{ "blackpanther", "tchalla", "boseman" }, { "thor", "odinson", "hemsworth" },
 			{ "hawkeye", "barton", "renner" }, { "warmachine", "rhodes", "cheadle" },
 			{ "spiderman", "parker", "holland" }, { "wintersoldier", "barnes", "stan" } };
-	private Avenger cptAmerica = new Avenger(avengerRoster[0][0], avengerRoster[0][1], avengerRoster[0][2]);
-	private Avenger ironMan = new Avenger(avengerRoster[1][0], avengerRoster[1][1], avengerRoster[1][2]);
-	private Avenger blackWidow = new Avenger(avengerRoster[2][0], avengerRoster[2][1], avengerRoster[2][2]);
-	private Avenger hulk = new Avenger(avengerRoster[3][0], avengerRoster[3][1], avengerRoster[3][2]);
-	private Avenger blackPan = new Avenger(avengerRoster[4][0], avengerRoster[4][1], avengerRoster[4][2]);
-	private Avenger thor = new Avenger(avengerRoster[5][0], avengerRoster[5][1], avengerRoster[5][2]);
-	private Avenger hawkEye = new Avenger(avengerRoster[6][0], avengerRoster[6][1], avengerRoster[6][2]);
-	private Avenger warMachine = new Avenger(avengerRoster[7][0], avengerRoster[7][1], avengerRoster[7][2]);
-	private Avenger spiderMan = new Avenger(avengerRoster[8][0], avengerRoster[8][1], avengerRoster[8][2]);
-	private Avenger winterSoldier = new Avenger(avengerRoster[9][0], avengerRoster[9][1], avengerRoster[9][2]);
-	private ArrayList<Avenger> possibleAvengers = new ArrayList<>();
 
 	private int topN = 4;
-	private int totalwordCount = 0;
+	private int totalwordcount = 0;
 	private Scanner input = new Scanner(System.in);
-//	private BST<Avenger> alphabticalBST = new BST<>();
+	private BST<Avenger> alphabeticalBST = new BST<Avenger>();
 	private BST<Avenger> mentionBST = new BST<Avenger>(new AvengerComparatorMentionOrder());
-//	private BST<Avenger> mostPopularAvengerBST = new BST<Avenger>(new AvengerComparatorFreqDesc());
-//	private BST<Avenger> mostPopularPerformerBST = new BST<Avenger>(new AvengerPerformerComparatorFreqDesc());
+	private BST<Avenger> mostPopularAvengerBST = new BST<Avenger>(new AvengerComparatorFreqDesc());
+	private BST<Avenger> mostPopularPerformerBST = new BST<Avenger>(new AvengerPerformerComparatorFreqDesc());
+	
+	private Avenger captainAmerica;
+	private Avenger ironMan;
+	private Avenger blackWidow;
+	private Avenger hulk;
+	private Avenger blackPanther;
+	private Avenger thor;
+	private Avenger hawkEye;
+	private Avenger warMachine;
+	private Avenger spiderMan;
+	private Avenger winterSoldier;
+	private Avenger toDelete;
+	
+	Iterator<Avenger> iterator;
+	Queue<Avenger> queue;
 	
 	public static void main(String[] args) {
 		A3 a3 = new A3();
 		a3.run();
 	}
 
+	
+    /**
+	 * Initiates the program by reading input, creating alternative order BSTs then printing results.
+	 */
 	public void run() {
 		readInput();
 		createdAlternativeOrderBSTs();
 		printResults();
 	}
 
+	
+    /**
+	 * Constructs alternative order BSTs and also deleting specific the nodes, of Hawkeye and Hulk.
+	 */
 	private void createdAlternativeOrderBSTs() {
-		/* TODO:
-		 *   - delete the following two avengers (if they exist) from the alphabetical tree
-		 *   	- barton
-		 *   	- banner
-		 *   use the tree iterator to do an in-order traversal of the alphabetical tree,
-		 *   and add avengers to the other trees with alternative ordering
-		 */
+		toDelete = new Avenger("hawkeye", "barton", "renner");
+		alphabeticalBST.delete(toDelete);
+		toDelete = new Avenger("hulk", "banner", "ruffalo");
+		alphabeticalBST.delete(toDelete);
+		
+		queue = new LinkedList<>();
+	    iterator = alphabeticalBST.iterator();
+	    while (iterator.hasNext()) 
+	    	queue.add(iterator.next());
+	    while (!queue.isEmpty()) {
+	    	Avenger addToQueue = queue.remove();
+	    	mentionBST.add(addToQueue, new AvengerComparatorMentionOrder());
+	    	mostPopularAvengerBST.add(addToQueue, new AvengerComparatorFreqDesc());
+	    	mostPopularPerformerBST.add(addToQueue, new AvengerPerformerComparatorFreqDesc());
+	    }
 	}
 
 	/**
-	 * read the input stream and keep track how many times avengers are mentioned by
+	 * read the input stream and keep track how many times Avengers are mentioned by
 	 * alias or last name or performer name.
 	 */
 	private void readInput() {
-		/* Create a mention index counter and initialize it to 1
-		 * While the scanner object has not reached end of stream, 
-		 * 	- read a word. 
-		 * 	- clean up the word 
-		 * 	- if the word is not empty, add the word count. 
-		 * 	- Check if the word is either an avenger alias or last name, or performer last name then
-		 *		- Create a new avenger object with the corresponding alias and last name and performer last name.
-		 *		- check if this avenger has already been added to the alphabetically ordered tree
-		 *			- if yes, increase the corresponding frequency count for the object already in the tree.
-		 *			- if no, add the newly created avenger to the alphabetically ordered BST, 
-		 *				- remember to set the frequency and the mention index.
-		 * You need to think carefully about how you are keeping track of the mention order by setting the mention order for each new avenger.
-		 */
-		possibleAvengers.add(cptAmerica);
-		possibleAvengers.add(ironMan);
-		possibleAvengers.add(blackWidow);
-		possibleAvengers.add(hulk);
-		possibleAvengers.add(blackPan);
-		possibleAvengers.add(thor);
-		possibleAvengers.add(hawkEye);
-		possibleAvengers.add(warMachine);
-		possibleAvengers.add(spiderMan);
-		possibleAvengers.add(winterSoldier);
-		
-		input = new Scanner(System.in);
+		totalwordcount = 0;
 		while (input.hasNext()) {
 			String word = input.next();
 			word = word.trim().toLowerCase().split("'")[0].replaceAll("[^\\\\sa-zA-Z]", "");
-			if (word.length() != 0) {
-				totalwordCount++;
-				// Making a list of all possible Avengers
-				matchIncrement(word, possibleAvengers); // Updating List of mentioned of Avengers and incrementing counters
-			}
+			if (word.length() != 0) totalwordcount++;
+			matchIncrement(word, avengerRoster);
 		}
 		input.close();
 	}
 	
-	/*
-	 * Matching and incrementing each Avenger's counts
-	 */
-	public void matchIncrement(String word, ArrayList<Avenger> avenger) {
-		for (int i = 0; i < avenger.size(); i++) {
-			if (word.equals(avenger.get(i).getAlias())) {
-				avenger.get(i).incrementAliasCount();
-				checkList(avenger.get(i));
-				return;
-			} else if (word.equals(avenger.get(i).getName())) {
-				avenger.get(i).incrementNameCount();
-				checkList(avenger.get(i));
-				return;
-			} else if (word.equals(avenger.get(i).getActor())) {
-				avenger.get(i).incrementActorCount();
-				checkList(avenger.get(i));
-				return;
+	// can iterate through the BST and find how many nodes are there, and set mention index to nodeCount +1 (if 0, then number 1 so and so)
+	// index1 is for the [] in roster, so avengers
+	// index2 is for the [][] in roster, so name/alias/performer
+	public void matchIncrement(String word, String[][] avengerRoster) {
+		for (int index1 = 0; index1 < 10; index1 ++) {
+			for (int index2 = 0; index2 < 3; index2 ++ ) {
+				if (word.equals(avengerRoster[index1][index2])) {
+					if (index1 == 0) {
+						if (!checkIfExist(captainAmerica)) {
+							captainAmerica = createNew(index1);
+							alphabeticalBST.add(captainAmerica);
+							captainAmerica.setMentionIndex(alphabeticalBST.size());
+						}
+						increment(index2, captainAmerica);
+					}
+					else if (index1 == 1) {
+						if (!checkIfExist(ironMan)) {
+							ironMan = createNew(index1);
+							alphabeticalBST.add(ironMan);
+							ironMan.setMentionIndex(alphabeticalBST.size());
+						}
+						increment(index2, ironMan);
+					}
+					else if (index1 == 2) {
+						if (!checkIfExist(blackWidow)) {
+							blackWidow = createNew(index1);
+							alphabeticalBST.add(blackWidow);
+							blackWidow.setMentionIndex(alphabeticalBST.size());
+						}
+						increment(index2, blackWidow);
+					}
+					else if (index1 == 3) {
+
+						if (!checkIfExist(hulk)) {
+							hulk = createNew(index1);
+							alphabeticalBST.add(hulk);
+							hulk.setMentionIndex(alphabeticalBST.size());
+						}
+						increment(index2, hulk);
+					}
+					else if (index1 == 4) {
+
+						if (!checkIfExist(blackPanther)) {
+							blackPanther = createNew(index1);
+							alphabeticalBST.add(blackPanther);
+							blackPanther.setMentionIndex(alphabeticalBST.size());
+						}
+						increment(index2, blackPanther);
+					}
+					else if (index1 == 5) {
+						if (!checkIfExist(thor)) {
+							thor = createNew(index1);
+							alphabeticalBST.add(thor);
+							thor.setMentionIndex(alphabeticalBST.size());
+						}
+						increment(index2, thor);
+					}
+					else if (index1 == 6) {
+						if (!checkIfExist(hawkEye)) {
+							hawkEye = createNew(index1);
+							alphabeticalBST.add(hawkEye);
+							hawkEye.setMentionIndex(alphabeticalBST.size());
+						}
+						increment(index2, hawkEye);
+					}
+					else if (index1 == 7) {
+						if (!checkIfExist(warMachine)) {
+							warMachine = createNew(index1);
+							alphabeticalBST.add(warMachine);
+							warMachine.setMentionIndex(alphabeticalBST.size());
+						}
+						increment(index2, warMachine);
+					}
+					else if (index1 == 8) {
+						if (!checkIfExist(spiderMan)) {
+							spiderMan = createNew(index1);
+							alphabeticalBST.add(spiderMan);
+							spiderMan.setMentionIndex(alphabeticalBST.size());
+						}
+						increment(index2, spiderMan);
+					}
+					else if (index1 == 9) {
+						if (!checkIfExist(winterSoldier)) {
+							winterSoldier = createNew(index1);
+							alphabeticalBST.add(winterSoldier);
+							winterSoldier.setMentionIndex(alphabeticalBST.size());
+						}
+						increment(index2, winterSoldier);
+					}
+				}
 			}
 		}
 	}
 	
-	/* 
-	 * Checks if an avenger mentioned is found in the avengersList
-	 *  If not add the avenger to mentioned BST object
+	
+	/**
+	 * Checks the number of nodes in the given BST.
+	 * 
+	 * @param BST, The Binary Search Tree
+	 * @return The number of nodes in the BST
 	 */
-	private void checkList(Avenger a) {
-		if (!(mentionBST.iterator()) {
-			avengersList.add(a);
-		}
+	public int nodeCount(BST<Avenger> bst) {
+		return bst.size();
+	}
+	
+	
+	/**
+	 * Creates a new Avenger object based on the given index.
+	 * 
+	 * @param index, The index of the avengerRoster array
+	 * @return A new Avenger object
+	 */
+
+	public Avenger createNew(int index) {
+		Avenger newAvenger = new Avenger(avengerRoster[index][0], avengerRoster[index][1], avengerRoster[index][2]);
+		return newAvenger;
+	}
+	
+	
+	/**
+	 * Increments the alias, name, or actor count of Avengers based on the given index.
+	 * 
+	 * @param index, The index to determine which count to increment
+	 * @param av, The Avenger object to increment the count
+	 */
+	public void increment(int index, Avenger av) {
+		if (index == 0) av.incrementAliasCount();
+		else if (index == 1) av.incrementNameCount();
+		else av.incrementActorCount();
+	}
+	
+	
+	/**
+	 * Checks if an Avenger object already exists in the alphabetical BST.
+	 * 
+	 * @param av, The Avenger object to check
+	 * @return True if the Avenger exists, false otherwise
+	 */
+	public boolean checkIfExist(Avenger av) {
+		if (alphabeticalBST.find(av) != null) return true;
+		else return false;
 	}
 
-	/**
-	 * print the results
+    /**
+	 * Prints the results, including total word count, number of Avengers mentioned,
+	 * lists of Avengers in various orders, and the (optimal) height  of each BST.
 	 */
 	private void printResults() {
-		// Todo: Print the total number of words (this total should not include words that are all digits or punctuation.)
+		BST<Avenger> topNAvengerBST = new BST<Avenger>();
+		BST<Avenger> topNPerformerBST = new BST<Avenger>();
+		
 		System.out.println("Total number of words: " + totalwordcount);
-		// TODO: Print the number of mentioned avengers after deleting "barton" and "banner".
-		//System.out.println("Number of Avengers Mentioned: " + ??);
+		System.out.println("Number of Avengers Mentioned: " + alphabeticalBST.size());
 		System.out.println();
 
 		System.out.println("All avengers in the order they appeared in the input stream:");
-		// TODO: Print the list of avengers in the order they appeared in the input
-		// Make sure you follow the formatting example in the sample output
+		mentionBST.printInOrder();
 		System.out.println();
 		
 		System.out.println("Top " + topN + " most popular avengers:");
-		// TODO: Print the most popular avengers, see the instructions for tie breaking
-		// Make sure you follow the formatting example in the sample output
+		queue.clear();
+	    iterator = mostPopularAvengerBST.iterator();
+	    while (iterator.hasNext())
+	    	queue.add(iterator.next());
+	    while (!queue.isEmpty() && topNAvengerBST.size() < topN) {
+	    	Avenger addToQueue = queue.remove();
+	    	topNAvengerBST.add(addToQueue, new AvengerComparatorFreqDesc());
+	    }
+	    topNAvengerBST.printInOrder();
 		System.out.println();
 
 		System.out.println("Top " + topN + " most popular performers:");
-		// TODO: Print the most popular performers, see the instructions for tie breaking
-		// Make sure you follow the formatting example in the sample output
+		queue.clear();
+	    iterator = mostPopularPerformerBST.iterator();
+	    while (iterator.hasNext())
+	    	queue.add(iterator.next());
+	    while (!queue.isEmpty() && topNPerformerBST.size() < topN) {
+	    	Avenger addToQueue = queue.remove();
+	    	topNPerformerBST.add(addToQueue, new AvengerPerformerComparatorFreqDesc());
+	    }
+	    topNPerformerBST.printInOrder();
 		System.out.println();
 
 		System.out.println("All mentioned avengers in alphabetical order:");
-		// TODO: Print the list of avengers in alphabetical order
+		alphabeticalBST.printInOrder();
 		System.out.println();
-
-		// TODO: Print the actual height and the optimal height for each of the four trees.
-//		System.out.println("Height of the mention order tree is : " + ??
-//				+ " (Optimal height for this tree is : " + ?? + ")");
-//		System.out.println("Height of the alphabetical tree is : " + ??
-//				+ " (Optimal height for this tree is : " + ?? + ")");
-//		System.out.println("Height of the most frequent tree is : " + ??
-//				+ " (Optimal height for this tree is : " + ?? + ")");
-//		System.out.println("Height of the most frequent performer tree is : " + ??
-//		+ " (Optimal height for this tree is : " + ?? + ")");
+		
+		System.out.println("Height of the mention order tree is : " + mentionBST.height() + " (Optimal height for this tree is : " + mentionBST.optimalHeight(mentionBST.size()) + ")");
+		System.out.println("Height of the alphabetical tree is : " + alphabeticalBST.height() + " (Optimal height for this tree is : " + alphabeticalBST.optimalHeight(alphabeticalBST.size()) + ")");
+		System.out.println("Height of the most frequent tree is : " + mostPopularAvengerBST.height() + " (Optimal height for this tree is : " + mostPopularAvengerBST.optimalHeight(mostPopularAvengerBST.size()) + ")");
+		System.out.println("Height of the most frequent performer tree is : " + mostPopularPerformerBST.height() + " (Optimal height for this tree is : " + mostPopularPerformerBST.optimalHeight(mostPopularPerformerBST.size()) + ")");
 	}
 }

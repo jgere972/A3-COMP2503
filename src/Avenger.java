@@ -1,87 +1,113 @@
 public class Avenger implements Comparable<Avenger> {
 
-	private String name;
-	private String alias;
-	private String actor;
-	private int nameCount;
-	private int aliasCount;
-	private int actorCount;
+	private String heroName;
+	private String heroAlias;
+	private String performer;
+	private int nameFreq;
+	private int aliasFreq;
+	private int performerFreq;
+	private int mentionIndex;
 
 	// Constructor
 	public Avenger(String alias, String name, String actor) {
-		this.name = name;
-		this.alias = alias;
-		this.actor = actor;
-		nameCount = 0;
-		aliasCount = 0;
-		actorCount = 0;
+		this.heroName = name;
+		this.heroAlias = alias;
+		this.performer = actor;
+		nameFreq = 0;
+		aliasFreq = 0;
+		performerFreq = 0;
 	}
 
 	// Getters
 	public String getName() {
-		return name;
+		return heroName;
 	}
 
 	public String getAlias() {
-		return alias;
+		return heroAlias;
 	}
 
 	public String getActor() {
-		return actor;
+		return performer;
 	}
+
 	public int getNameCount() {
-		return nameCount;
+		return nameFreq;
 	}
 
 	public int getAliasCount() {
-		return aliasCount;
+		return aliasFreq;
 	}
 
 	public int getActorCount() {
-		return actorCount;
+		return performerFreq;
 	}
-	//Incrementing the Counters
+	
+	public int getTotalCount() {
+		return nameFreq + aliasFreq + performerFreq;
+	}
+
+	// Incrementing the Counters
 	public void incrementNameCount() {
-		nameCount++;
+		nameFreq++;
 	}
 
 	public void incrementAliasCount() {
-		aliasCount++;
+		aliasFreq++;
 	}
 
 	public void incrementActorCount() {
-		actorCount++;
+		performerFreq++;
 	}
 
+	public void setMentionIndex(int i) {
+		mentionIndex = i;
+	}
+	
+	public int getMentionIndex() {
+		return mentionIndex;
+	}
+	
+	
+	/**
+	 * Overrides the equals method to check if two Avenger objects are equal based on their Alias.
+	 * 
+	 * @param obj The object to compare with this Avenger
+	 * @return True if the heroAlias of both Avengers are equal, false otherwise
+	 */
 	@Override
-	public boolean equals(Object obj) {		//Matching compareTo to order Alias alphabetically
-		if (obj == null) {
-			return false;
-		}
-		if (obj == this) {
-			return true;
-		}
+	public boolean equals(Object obj) { // Matching compareTo to order Alias alphabetically
+		if (obj == null) return false;
+		if (obj == this) return true;
 		Avenger av = (Avenger) obj;
-		if (this.alias.compareTo(av.getAlias()) == 0) {
-			return true;
-		} else {
-			return false;
-		}
+		if (this.heroAlias.compareTo(av.getAlias()) == 0) return true;
+		else return false;
 	}
-
-	@Override
-	public int compareTo(Avenger a) {		//Order Alias alphabetically
-		return this.alias.compareTo(a.getAlias());
-	}
+	
+	
+	/**
+	 * Overrides the toString method to provide a string representation of Avengers. 
+	 * The string includes heroAlias, heroName, performer, and frequency counts
+	 * 
+	 * @return A formatted string representing the Avenger object
+	 */
 	@Override
 	public String toString() {
-		return  alias + " aka " + name
-				+ " performed by " + actor
-				+ " mentioned "
-				+ "(n: " + nameCount
-				+ " + a: " + aliasCount
-				+ " + p: " + actorCount
-				+ ")" + " time(s)";
+		return heroAlias + " aka " + heroName + " performed by " + performer + " mentioned " + "(n: " + nameFreq
+				+ " + a: " + aliasFreq + " + p: " + performerFreq + ")" + " time(s)";
 	}
-
+	
+	
+	/**
+	 * Overrides the compareTo method to provide a natural ordering based on Alias.
+	 * 
+	 * @param other The Avenger object to compare with this Avenger
+	 * @return A negative, zero, or positive if the Avenger is less than, equal to,
+	 *         or greater than the specified Avenger, based on their Alias
+	 */
+	@Override
+	public int compareTo(Avenger other) {
+		if (other == null) return -1;
+		return this.getAlias().compareTo(other.getAlias());
+	}
 }
